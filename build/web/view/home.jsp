@@ -19,51 +19,62 @@
     <body>
         <!--this is header-->
         <header>
-            <div class = "container">
-            <div class = "row">
-                <div class ="col-md-7">
-                    <img src="../images/logo_main.png" alt="Trường THPT Nghi lộc 4" width = "100px"/>
-                    <span>THƯ VIỆN XANH - KHO TÀNG SÁCH</span>
-                </div>
-                <div class ="col-md-5">
-                    <ul class="nav">
-                        <li class="nav-item active">
-                          <a class="nav-link" href="#">Thông tin mượn sách</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Thông tin cá nhân</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Logout</a>
-                        </li>
-                  </ul>
-                </ul>
-                </div>
-            </div> 
-            <div class = "row">
-                <div class = "col-md-8">
-                    <ul class="nav">
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Trang chủ</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Thông báo</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Góc thảo luận</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Hướng dẫn mượn sách</a>
-                        </li>
+            <div class = "container-fluid">
+                <div class = "row">
+                    <div class ="col-md-7">
+                        <img src="../images/logo_main.png" alt="Trường THPT Nghi lộc 4" width = "100px"/>
+                        <span class = "name-banner">THƯ VIỆN XANH - KHO TÀNG SÁCH</span>
+                    </div>
+                    <div class ="col-md-5">
+                        <ul class="nav">
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">Thông tin mượn sách</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">Thông tin cá nhân</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">Logout</a>
+                            </li>
+                      </ul>
                     </ul>
+                    </div>
+                </div> 
+                <div class = "row header-second">
+                    <div class = "col-md-6">
+                        <ul class="nav">
+                           <li class="nav-item color-menu">
+                             <a class="nav-link" href="#">Trang chủ</a>
+                           </li>
+                           <li class="nav-item color-menu">
+                             <a class="nav-link" href="#">Thông báo</a>
+                           </li>
+                           <li class="nav-item color-menu">
+                             <a class="nav-link" href="#">Kho sách</a>
+                           </li>
+                           <li class="nav-item color-menu">
+                             <a class="nav-link" href="#">Góc thảo luận</a>
+                           </li>
+                           <li class="nav-item color-menu">
+                             <a class="nav-link" href="#">Hướng dẫn mượn sách</a>
+                           </li>
+                        </ul>
+                    </div>
+                    <!--Search function-->
+                    <div class = "col-md-3">                           
+                        <form action="">
+                            <select class = "categories">
+                                <option>Danh mục sách</option>
+                            </select>
+                        </form>
+                    </div> 
+                    <div class = "col-md-3 search-header">
+                        <form action="">
+                           <input class = "input-search" type="text" placeholder = "Sách cần tìm..." name = "search_book"/>
+                           <input class = "buttom-search" type = "submit" value = "Tìm">
+                        </form>
+                    </div>
                 </div>
-                 <div class = "col-md-4">
-                     <form action="">
-                        <input type="text" placeholder = "Sách Cần Tìm..." name = "search_book"/>
-                        <input type = "submit" value = "search">
-                     </form>
-                </div>
-            </div>
             </div>
         </header>       
     </body>

@@ -10,4 +10,42 @@ header{
     border-radius: 5px;
     box-shadow: 0 0 10px 5px #D6D8DB;
 }
+.header-second{
+    margin-top: 5px;
+    background-color: #62AB00;
+    box-shadow: 0 0 10px 5px #DFDFDA;
+}
+.name-banner{
+    color : green;
+    font-weight: 900;
+}
+.color-menu a:hover{
+    color : black;
+}
+.color-menu a{
+    color : white;
+}
+.categories{
+    border-radius: 5px;
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    font-weight: 900;
+    background-color: #62AB00;
+    color : white;
+}
+.search-header input{
+    margin-top: 5px;
+    border : 1px solid #FFFFFF;
+    border-radius: 5px;
+    
+}
+.search-header .buttom-search{
+   width : 70px;
+   background-color: #E1BF21;
+   border : 1px solid #E1BF21; 
+   color :azure;
+   font-weight: 700;
+   font-size: 18px;
+}
 
