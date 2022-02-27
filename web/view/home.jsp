@@ -37,8 +37,7 @@
                               <a class="nav-link" href="#">Logout</a>
                             </li>
                       </ul>
-                    </ul>
-                    </div>
+                    </div>  
                 </div> 
                 <div class = "row header-second">
                     <div class = "col-md-6">
@@ -62,11 +61,17 @@
                     </div>
                     <!--Search function-->
                     <div class = "col-md-3">                           
-                        <form action="">
-                            <select class = "categories">
-                                <option>Danh mục sách</option>
-                            </select>
-                        </form>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-success btn-block dropdown-toggle" data-toggle="dropdown">
+                                Danh Mục Sách
+                            </button>
+                            <div class="dropdown-menu btn-block">
+                                <%for(int i = 0; i < 15; i++){ %>
+                                   <a class="dropdown-item" href="#">Link 1</a>
+                                <%}
+                                %>
+                            </div>
+                        </div>
                     </div> 
                     <div class = "col-md-3 search-header">
                         <form action="">
@@ -76,6 +81,9 @@
                     </div>
                 </div>
             </div>
-        </header>       
+        </header>
+    <marquee width="60%" direction="left" height="50px">
+        Trường THPT Nghi Lộc 4 xin thông báo ngày 28/02/2022 còn 50 lượt mượn sách
+    </marquee>
     </body>
 </html>
