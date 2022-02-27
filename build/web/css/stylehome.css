@@ -1,0 +1,13 @@
+body{
+    margin: 0; 
+    body : 0; 
+}
+header{
+    margin-left: 50px;
+    margin-right: 50px;
+    background: #F8F9FA;
+    border: 2px solid white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 5px #D6D8DB;
+}
+
