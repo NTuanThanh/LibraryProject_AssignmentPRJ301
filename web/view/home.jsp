@@ -45,44 +45,46 @@
                     </div>  
                 </div> 
                 <div class = "row header-second">
-                    <div class = "col-md-6">
-                        <ul class="nav">
-                           <li class="nav-item color-menu">
-                             <a class="nav-link" href="#">Trang chủ</a>
-                           </li>
-                           <li class="nav-item color-menu">
-                             <a class="nav-link" href="#">Thông báo</a>
-                           </li>
-                           <li class="nav-item color-menu">
-                             <a class="nav-link" href="#">Kho sách</a>
-                           </li>
-                           <li class="nav-item color-menu">
-                             <a class="nav-link" href="#">Góc thảo luận</a>
-                           </li>
-                           <li class="nav-item color-menu">
-                             <a class="nav-link" href="#">Hướng dẫn mượn sách</a>
-                           </li>
-                        </ul>
-                    </div>
-                    <!--Search function-->
-                    <div class = "col-md-3">                           
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-success btn-block dropdown-toggle" data-toggle="dropdown">
-                                Danh Mục Sách
+                    <div class = "col-md-12">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                                <span class="navbar-toggler-icon"></span>
                             </button>
-                            <div class="dropdown-menu btn-block">
-                                <%for (Category c : categories) { %>
-                                     <a class="dropdown-item" href="#"><%= c.getName()%></a>      
-                                <%}
-                                %>
+                            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                                <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item color-menu">
+                                        <a class="nav-link" href="#">Trang chủ</a>
+                                    </li>
+                                    <li class="nav-item color-menu">
+                                        <a class="nav-link" href="#">Thông báo</a>
+                                    </li>
+                                    <li class="nav-item color-menu">
+                                        <a class="nav-link" href="#">Kho sách</a>
+                                    </li>
+                                    <li class="nav-item color-menu">
+                                        <a class="nav-link" href="#">Góc thảo luận</a>
+                                    </li>
+                                    <li class="nav-item color-menu">
+                                        <a class="nav-link" href="#">Hướng dẫn mượn sách</a>
+                                    </li>      
+                                </ul>
+                                <div class="dropdown mr-auto">
+                                    <button type="button" class="my-size-category btn btn-success btn-block dropdown-toggle" data-toggle="dropdown">
+                                        Danh Mục Sách
+                                    </button>
+                                    <div class="dropdown-menu btn-block">
+                                        <%for (Category c : categories) {%>
+                                        <a class="dropdown-item" href="#"><%= c.getName()%></a>      
+                                        <%}
+                                        %>
+                                    </div>
+                                </div>            
+                                <form class="form-inline" action = "">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Sách cần tìm...">
+                                    <button class="btn btn-warning" type="submit">Tìm Kiếm</button>
+                                </form>          
                             </div>
-                        </div>
-                    </div> 
-                    <div class = "col-md-3 search-header">
-                        <form action="">
-                           <input class = "input-search" type="text" placeholder = "Sách cần tìm..." name = "search_book"/>
-                           <input class = "buttom-search" type = "submit" value = "Tìm">
-                        </form>
+                        </nav>
                     </div>
                 </div>
             </div>
