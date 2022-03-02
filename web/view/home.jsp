@@ -7,6 +7,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="modal.Category"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,12 +20,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <link href="css/stylehome.css" rel="stylesheet" type="text/css"/>
         <title>Thư viện</title>
-        <%
-           ArrayList<Category> categories = (ArrayList<Category>)request.getAttribute("categories"); 
-        %>        
+        <c:set var = "now" value = "<%= new java.util.Date()%>" />
     </head>
     <body>
-        <!--this is header-->
+    <!--this is header-->
         <header>
             <div class = "container-fluid">
                 <div class = "row">
@@ -73,10 +74,9 @@
                                         Danh Mục Sách
                                     </button>
                                     <div class="dropdown-menu btn-block">
-                                        <%for (Category c : categories) {%>
-                                        <a class="dropdown-item" href="#"><%= c.getName()%></a>      
-                                        <%}
-                                        %>
+                                        <c:forEach items="${requestScope.categories}" var ="c">
+                                          <a class="dropdown-item" href="#">${c.name}</a>      
+                                        </c:forEach>
                                     </div>
                                 </div>            
                                 <form class="form-inline" action = "">
@@ -89,9 +89,38 @@
                 </div>
             </div>
         </header>
+    <!--notification-->
     <marquee width="60%" direction="left" height="50px" scrollamount="4">
-        <span>Trường THPT Nghi Lộc 4 xin thông báo ngày 28/02/2022 còn 50 lượt mượn sách</span>
+        <span>Trường THPT Nghi Lộc 4 xin thông báo ngày 
+                       <fmt:formatDate type = "date" 
+                        value = "${now}" /> 
+              còn 50 lượt mượn sách
+        </span>
         <span class = "notice-covid"> -  HỌC SINH PHẢI CHẤP HÀNH THỰC HIỆN QUY ĐỊNH 5K ĐẢM BẢO AN TOÀN PHÒNG CHỐNG DỊCH COVID-19 KHI QUAY TRỞ LẠI TRƯỜNG VÀ MƯỢN SÁCH</span>
     </marquee>
+    <!--this is body -->
+    <div class = "main-body">
+        <div class = "show-book">
+            <div class = "header-main">
+                <h2 class = "sec-title">
+                    <p style="vertical-align: inherit">những quyển sách mới nhất</p>
+                </h2>
+                <div class = "books-item">                   
+                    <c:forEach var = "i" begin = "1" end = "10">
+                       <a href ="#" class = "book-item">
+                        <figure>
+                           <img src="images/books/1.jpg" alt="Đắc nhân tâm"/>
+                        </figure>                           
+                        <div class = "book-info">
+                            <p class = "book-title">Đắc Nhân Tâm</p>
+                            <h3 class = "book-category">Tâm Lý - Kỹ Năng Sống</h3>
+                            <p class = "book-author">Tác giả : Mr a</p>
+                        </div>
+                    </a>
+                   </c:forEach>
+                </div>
+            </div>
+        </div>
+    </div>
     </body>
 </html>
