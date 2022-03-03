@@ -18,7 +18,7 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-        <link href="css/stylehome.css" rel="stylesheet" type="text/css"/>
+        <link href="css/stylehome.css" rel="stylesheet" type="text/css"/>      
         <title>Thư viện</title>
         <c:set var = "now" value = "<%= new java.util.Date()%>" />
     </head>
@@ -102,6 +102,7 @@
     <div class = "main-body">
         <div class = "show-book">
             <div class = "header-main">
+                <!--Show new books-->
                 <h2 class = "sec-title">
                     <p style="vertical-align: inherit">những quyển sách mới nhất</p>
                 </h2>
@@ -119,8 +120,40 @@
                     </a>
                    </c:forEach>
                 </div>
+                <!--Show top 5 books-->
+                <h2 class = "sec-title">
+                    <p style="vertical-align: inherit">Top 5 Quyển Sách Được Đọc Nhiều Nhất</p>
+                </h2>
+                <div class = "books-item">                   
+                    <c:forEach var = "i" begin = "1" end = "5">
+                       <a href ="#" class = "book-item">
+                        <figure>
+                           <img src="images/books/1.jpg" alt="Đắc nhân tâm"/>
+                        </figure>                           
+                        <div class = "book-info">
+                            <p class = "book-title">Đắc Nhân Tâm</p>
+                            <h3 class = "book-category">Tâm Lý - Kỹ Năng Sống</h3>
+                            <p class = "book-author">Tác giả : Mr a</p>
+                        </div>
+                    </a>
+                   </c:forEach>
+                </div>
             </div>
         </div>
     </div>
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class = "text-center">
+                <p><strong>Thư viện Trường THPT Nghi Lộc 4</strong></p>
+                <p>Địa chỉ : Xóm 2, Nghi Xá, Nghi Lộc, Nghệ An</p>
+                <p>Điện Thoại : 02383 861 079</p>
+                <p>Email :
+                    <a href="mailto:thuviennghiloc4@nghean.edu.vn">thuviennghiloc4@nghean.edu.vn</a>
+                </p>
+            </div>
+            <div class="footer-copyright text-center py-3">© 2022 Copyright:
+                <a href="#"> thuviennghiloc4.edu.vn</a>
+            </div>
+        </footer>
     </body>
 </html>

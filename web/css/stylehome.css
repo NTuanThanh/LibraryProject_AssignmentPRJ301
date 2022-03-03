@@ -64,7 +64,6 @@ marquee{
     border: 2px solid white;
     border-radius: 5px;
     box-shadow: 0 0 10px 5px #D6D8DB;
-    height: 1000px;
 }
 .sec-title{
     font-size: 20px;
@@ -146,7 +145,15 @@ marquee{
     color: #333;
     text-transform: capitalize;
     display: block;
-    margin-bottom: 5px
+    margin-bottom: 5px;
+}
+.main-footer{
+    background: #333333;
+    margin-top: 30px;
+    color: #FFFFFF;
+}
+.main-footer div{
+    padding-top: 15px;
 }
 @media (max-width: 900px){
     .books-item {
