@@ -1,29 +1,28 @@
 <%-- 
-    Document   : home
-    Created on : Feb 27, 2022, 2:42:29 PM
+    Document   : books.jsp
+    Created on : Mar 6, 2022, 8:45:04 PM
     Author     : pv
 --%>
-
 <%@page import="java.util.ArrayList"%>
 <%@page import="modal.Category"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Kho sách - Thư viện</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-        <link href="css/stylehome.css" rel="stylesheet" type="text/css"/>      
-        <title>Thư viện</title>
+        <link href="css/stylehome.css" rel="stylesheet" type="text/css"/>     
+        <link href="css/books.css" rel="stylesheet" type="text/css"/>
         <c:set var = "now" value = "<%= new java.util.Date()%>" />
     </head>
     <body>
-    <!--this is header-->
+        <!--this is header-->
         <header>
             <div class = "container-fluid">
                 <div class = "row">
@@ -54,13 +53,13 @@
                             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item color-menu">
-                                        <a class="nav-link" href="#">Trang chủ</a>
+                                        <a class="nav-link" href="home">Trang chủ</a>
                                     </li>
                                     <li class="nav-item color-menu">
                                         <a class="nav-link" href="#">Thông báo</a>
                                     </li>
                                     <li class="nav-item color-menu">
-                                        <a class="nav-link" href="books">Kho sách</a>
+                                        <a class="nav-link" href="#">Kho sách</a>
                                     </li>
                                     <li class="nav-item color-menu">
                                         <a class="nav-link" href="#">Góc thảo luận</a>
@@ -89,60 +88,55 @@
                 </div>
             </div>
         </header>
-    <!--notification-->
-    <marquee width="60%" direction="left" height="50px" scrollamount="4">
-        <span>Trường THPT Nghi Lộc 4 xin thông báo ngày 
-                       <fmt:formatDate type = "date" 
-                        value = "${now}" /> 
-              còn 50 lượt mượn sách
-        </span>
-        <span class = "notice-covid"> -  HỌC SINH PHẢI CHẤP HÀNH THỰC HIỆN QUY ĐỊNH 5K ĐẢM BẢO AN TOÀN PHÒNG CHỐNG DỊCH COVID-19 KHI QUAY TRỞ LẠI TRƯỜNG VÀ MƯỢN SÁCH</span>
-    </marquee>
-    <!--this is body -->
-    <div class = "main-body">
-        <div class = "show-book">
-            <div class = "header-main">
-                <!--Show new books-->
-                <h2 class = "sec-title">
-                    <p style="vertical-align: inherit">những quyển sách mới nhất</p>
-                </h2>
-                <div class = "books-item">                   
-                    <c:forEach var = "i" begin = "1" end = "10">
-                       <a href ="#" class = "book-item">
-                        <figure>
-                           <img src="images/books/1.jpg" alt="Đắc nhân tâm"/>
-                        </figure>                           
-                        <div class = "book-info">
-                            <p class = "book-title">Đắc Nhân Tâm</p>
-                            <h3 class = "book-category">Tâm Lý - Kỹ Năng Sống</h3>
-                            <p class = "book-author">Tác giả : Mr a</p>
+        <!--notification-->
+        <marquee width="60%" direction="left" height="50px" scrollamount="4">
+            <span>Trường THPT Nghi Lộc 4 xin thông báo ngày 
+                           <fmt:formatDate type = "date" 
+                            value = "${now}" /> 
+                  còn 50 lượt mượn sách
+            </span>
+            <span class = "notice-covid"> -  HỌC SINH PHẢI CHẤP HÀNH THỰC HIỆN QUY ĐỊNH 5K ĐẢM BẢO AN TOÀN PHÒNG CHỐNG DỊCH COVID-19 KHI QUAY TRỞ LẠI TRƯỜNG VÀ MƯỢN SÁCH</span>
+        </marquee>
+        <!-- Body -->
+        <div class = "main-body">
+            <div class = "row row-body-flex">
+                <!-- this is left body -->
+                <div class = "col-lg-9">
+                    <div class = "block-books-left">
+                        <div class="sidebar-title">Tìm kiếm nâng cao</div>
+                        <div class = "books-item">                   
+                            <c:forEach var = "i" begin = "1" end = "10">
+                               <a href ="#" class = "book-item">
+                                <figure>
+                                   <img src="images/books/1.jpg" alt="Đắc nhân tâm"/>
+                                </figure>                           
+                                <div class = "book-info">
+                                    <p class = "book-title">Đắc Nhân Tâm</p>
+                                    <h3 class = "book-category">Tâm Lý - Kỹ Năng Sống</h3>
+                                    <p class = "book-author">Tác giả : Mr a</p>
+                                </div>
+                               </a>
+                            </c:forEach>
                         </div>
-                    </a>
-                   </c:forEach>
+                    </div>    
                 </div>
-                <!--Show top 5 books-->
-                <h2 class = "sec-title">
-                    <p style="vertical-align: inherit">Top 5 Quyển Sách Được Đọc Nhiều Nhất</p>
-                </h2>
-                <div class = "books-item">                   
-                    <c:forEach var = "i" begin = "1" end = "5">
-                       <a href ="#" class = "book-item">
-                        <figure>
-                           <img src="images/books/1.jpg" alt="Đắc nhân tâm"/>
-                        </figure>                           
-                        <div class = "book-info">
-                            <p class = "book-title">Đắc Nhân Tâm</p>
-                            <h3 class = "book-category">Tâm Lý - Kỹ Năng Sống</h3>
-                            <p class = "book-author">Tác giả : Mr a</p>
-                        </div>
-                    </a>
-                   </c:forEach>
+                <!-- this is right body -->
+                <div class = "col-lg-3">
+                    <div class = "block-categories-right">
+                        <div class="sidebar-title">Danh Mục</div>
+                        <ul class="list-group list-group-flush">
+                            <c:forEach items="${requestScope.categories}" var ="c">
+                                 <li class="list-group-item">
+                                    <a href="#">${c.name}</a>
+                                 </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
         <!-- Footer -->
-        <footer class="main-footer">
+       <footer class="main-footer">
             <div class = "text-center">
                 <p><strong>Thư viện Trường THPT Nghi Lộc 4</strong></p>
                 <p>Địa chỉ : Xóm 2, Nghi Xá, Nghi Lộc, Nghệ An</p>
@@ -155,5 +149,6 @@
                 <a href="#"> thuviennghiloc4.edu.vn</a>
             </div>
         </footer>
+        
     </body>
 </html>

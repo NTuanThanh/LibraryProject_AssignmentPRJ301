@@ -60,7 +60,7 @@
                                         <a class="nav-link" href="#">Thông báo</a>
                                     </li>
                                     <li class="nav-item color-menu">
-                                        <a class="nav-link" href="#">Kho sách</a>
+                                        <a class="nav-link" href="books">Kho sách</a>
                                     </li>
                                     <li class="nav-item color-menu">
                                         <a class="nav-link" href="#">Góc thảo luận</a>
