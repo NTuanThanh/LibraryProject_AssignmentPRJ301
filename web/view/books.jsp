@@ -104,6 +104,36 @@
                 <div class = "col-lg-9">
                     <div class = "block-books-left">
                         <div class="sidebar-title">Tìm kiếm nâng cao</div>
+                        <!-- Advanced Search-->
+                        <form>
+                            <div class="advanced-search">
+                                <div class = "advanced-search-item category">
+                                    <label for="category">Theo Danh Mục</label>
+                                    <select class="form-control" id="category">
+                                        <option>Chọn Tên Danh Mục</option>
+                                        <c:forEach items = "${requestScope.categories}" var = "c">
+                                            <option>${c.name}</option>
+                                        </c:forEach>>                                        
+                                    </select>
+                                </div>
+                                <div class = "advanced-search-item">
+                                    <label for="title" class="mr-sm-2">Tên Sách</label>
+                                    <input type="text" class="form-control" id="title" placeholder="Nhập vào tên sách" >
+                                </div>
+                                <div class = "advanced-search-item">
+                                   <label for="author" class="mr-sm-2">Tên Tác Giả</label>
+                                   <input type="text" class="form-control" id="author" placeholder="Nhập vào tên tác giả" >
+                                </div>
+                                <div class = "advanced-search-item">
+                                   <label for="author" class="mr-sm-2">Tên Nhà Xuất Bản</label>
+                                   <input type="text" class="form-control" id="author" placeholder="Nhập vào nhà xuất bản" >
+                                </div>
+                            </div>
+                            <div class = "advanced-search-submit">
+                                <button class="btn btn-danger" type="submit">Tìm Kiếm</button>
+                            </div>
+                        </form>
+                        <!--Show all books -->
                         <div class = "books-item">                   
                             <c:forEach var = "i" begin = "1" end = "10">
                                <a href ="#" class = "book-item">
