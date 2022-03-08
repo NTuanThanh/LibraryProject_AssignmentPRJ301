@@ -59,7 +59,7 @@
                                         <a class="nav-link" href="#">Thông báo</a>
                                     </li>
                                     <li class="nav-item color-menu">
-                                        <a class="nav-link" href="#">Kho sách</a>
+                                        <a class="nav-link" href="books">Kho sách</a>
                                     </li>
                                     <li class="nav-item color-menu">
                                         <a class="nav-link" href="#">Góc thảo luận</a>
@@ -134,6 +134,20 @@
                             </div>
                         </form>
                         <!--Show all books -->
+                        <!--Pagination -->
+                        <!-- This is pagination -->
+                        <div class = "books-pagination">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">First</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Last</a></li>
+                            </ul>
+                        </div>
+                        <!--Show books-->
                         <div class = "books-item">                   
                             <c:forEach var = "i" begin = "1" end = "10">
                                <a href ="#" class = "book-item">
@@ -147,6 +161,18 @@
                                 </div>
                                </a>
                             </c:forEach>
+                        </div>
+                        <!-- This is pagination -->
+                        <div class = "books-pagination">
+                            <ul class="pagination" id = "viewPagger">
+                                <li class="page-item"><a class="page-link" href="#">First</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Last</a></li>
+                            </ul>
                         </div>
                     </div>    
                 </div>
@@ -163,6 +189,7 @@
                         </ul>
                     </div>
                 </div>
+                
             </div>
         </div>
         <!-- Footer -->

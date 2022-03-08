@@ -59,6 +59,11 @@
     justify-content: center;
     margin-top: 10px;
 }
+.books-pagination{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
 @media (max-width: 900px){
     .advanced-search .advanced-search-item{
         flex-basis: calc(50% - 12px);

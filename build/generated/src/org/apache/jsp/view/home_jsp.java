@@ -78,7 +78,7 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <script src=\"https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js\"></script>\n");
       out.write("        <script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js\"></script>\n");
       out.write("        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js\"></script>\n");
-      out.write("        <link href=\"css/stylehome.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+      out.write("        <link href=\"css/stylehome.css\" rel=\"stylesheet\" type=\"text/css\"/>      \n");
       out.write("        <title>Thư viện</title>\n");
       out.write("        ");
       //  c:set
@@ -133,7 +133,7 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                        <a class=\"nav-link\" href=\"#\">Thông báo</a>\n");
       out.write("                                    </li>\n");
       out.write("                                    <li class=\"nav-item color-menu\">\n");
-      out.write("                                        <a class=\"nav-link\" href=\"#\">Kho sách</a>\n");
+      out.write("                                        <a class=\"nav-link\" href=\"books\">Kho sách</a>\n");
       out.write("                                    </li>\n");
       out.write("                                    <li class=\"nav-item color-menu\">\n");
       out.write("                                        <a class=\"nav-link\" href=\"#\">Góc thảo luận</a>\n");
@@ -189,7 +189,7 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("                </div>\n");
       out.write("                <!--Show top 5 books-->\n");
-      out.write("<!--                <h2 class = \"sec-title\">\n");
+      out.write("                <h2 class = \"sec-title\">\n");
       out.write("                    <p style=\"vertical-align: inherit\">Top 5 Quyển Sách Được Đọc Nhiều Nhất</p>\n");
       out.write("                </h2>\n");
       out.write("                <div class = \"books-item\">                   \n");
@@ -197,10 +197,24 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       if (_jspx_meth_c_forEach_2(_jspx_page_context))
         return;
       out.write("\n");
-      out.write("                </div>-->\n");
+      out.write("                </div>\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
       out.write("    </div>\n");
+      out.write("        <!-- Footer -->\n");
+      out.write("        <footer class=\"main-footer\">\n");
+      out.write("            <div class = \"text-center\">\n");
+      out.write("                <p><strong>Thư viện Trường THPT Nghi Lộc 4</strong></p>\n");
+      out.write("                <p>Địa chỉ : Xóm 2, Nghi Xá, Nghi Lộc, Nghệ An</p>\n");
+      out.write("                <p>Điện Thoại : 02383 861 079</p>\n");
+      out.write("                <p>Email :\n");
+      out.write("                    <a href=\"mailto:thuviennghiloc4@nghean.edu.vn\">thuviennghiloc4@nghean.edu.vn</a>\n");
+      out.write("                </p>\n");
+      out.write("            </div>\n");
+      out.write("            <div class=\"footer-copyright text-center py-3\">© 2022 Copyright:\n");
+      out.write("                <a href=\"#\"> thuviennghiloc4.edu.vn</a>\n");
+      out.write("            </div>\n");
+      out.write("        </footer>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {
