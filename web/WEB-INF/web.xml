@@ -8,6 +8,10 @@
         <servlet-name>ListAllBooksController</servlet-name>
         <servlet-class>controller.user.ListAllBooksController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InsertCategory</servlet-name>
+        <servlet-class>controller.admin.InsertCategory</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>ListAllBooksController</servlet-name>
         <url-pattern>/books</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertCategory</servlet-name>
+        <url-pattern>/admin/category/insert</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

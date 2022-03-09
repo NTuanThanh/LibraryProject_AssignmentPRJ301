@@ -51,4 +51,34 @@ public class CategoryDBContext extends DBContext{
         }
         return categories;
     }
+    public void insert(Category c){
+        PreparedStatement stm = null;
+        try {
+            String sql = "INSERT INTO [Categories]\n" +
+                    "           ([name])\n" +
+                    "     VALUES\n" +
+                    "           (?)";
+            stm = connection.prepareStatement(sql); 
+            stm.setString(1, c.getName());
+            stm.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            if(stm != null){
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }if(connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        
+    }
 }
