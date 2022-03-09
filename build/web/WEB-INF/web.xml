@@ -12,6 +12,10 @@
         <servlet-name>InsertCategory</servlet-name>
         <servlet-class>controller.admin.InsertCategory</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InsertPublisher</servlet-name>
+        <servlet-class>controller.admin.InsertPublisher</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>InsertCategory</servlet-name>
         <url-pattern>/admin/category/insert</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertPublisher</servlet-name>
+        <url-pattern>/admin/publisher/insert</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

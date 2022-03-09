@@ -15,6 +15,8 @@
         <!-- Tạm -->
         <form action = "insert" method = "POST">
             <input type="text" name = "categoryName" />
+            ${requestScope.message_ExistCategoryName}
+            <br/>
             <input type="submit" value = "save">
         </form>
     </body>

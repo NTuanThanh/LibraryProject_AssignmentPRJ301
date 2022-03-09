@@ -1,6 +1,6 @@
 <%-- 
-    Document   : insertCategory
-    Created on : Mar 9, 2022, 5:29:41 PM
+    Document   : insertPublisher
+    Created on : Mar 10, 2022, 3:00:39 AM
     Author     : pv
 --%>
 
@@ -14,7 +14,7 @@
     <body>
         <!-- Tạm -->
         <form action = "insert" method = "POST">
-            <input type="text" name = "categoryName" />
+            <input type="text" name = "publisherName" />
             ${requestScope.message_ExistCategoryName}
             <br/>
             <input type="submit" value = "save">

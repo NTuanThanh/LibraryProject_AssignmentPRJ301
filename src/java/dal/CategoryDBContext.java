@@ -81,4 +81,18 @@ public class CategoryDBContext extends DBContext{
         
         
     }
+    public boolean checkExistCname(String cname){
+        try {
+            String sql = "select [name] from Categories where [name] like ?"; 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, cname);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;       
+    }
 }
