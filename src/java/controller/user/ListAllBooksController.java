@@ -5,6 +5,7 @@
  */
 package controller.user;
 
+import dal.BookDBContext;
 import dal.CategoryDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modal.Book;
 import modal.Category;
 
 /**
@@ -24,8 +26,12 @@ public class ListAllBooksController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        CategoryDBContext categoryDB = new CategoryDBContext(); 
+        CategoryDBContext categoryDB = new CategoryDBContext();
+        BookDBContext bookDB = new BookDBContext(); 
         ArrayList<Category> categories = categoryDB.getAllCategories();
+        // test dữ liệu, phân trang sau
+        ArrayList<Book> top10books = bookDB.getTop10books();
+        request.setAttribute("top10books",top10books);
         request.setAttribute("categories", categories);
         request.getRequestDispatcher("view/books.jsp").forward(request, response);
     }

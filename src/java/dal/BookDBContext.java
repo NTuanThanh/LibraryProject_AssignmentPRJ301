@@ -6,10 +6,15 @@
 package dal;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modal.Book;
+import modal.Category;
+import modal.Language;
+import modal.Publisher;
 
 /**
  *
@@ -55,5 +60,45 @@ public class BookDBContext extends DBContext{
         } catch (SQLException ex) {
             Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }      
+    }
+    public ArrayList<Book> getTop10books(){
+        ArrayList<Book> top10books = new ArrayList<>(); 
+        try {
+            String sql = "select top(10) book_id, b.[name] as bname, publication_year, number_pages, img, [Description], author, \n" +
+                        "                 p.publisher_id, p.[name] as pname, l.language_id, l.name_language as lname, c.category_id, c.[name] as cname, [location] \n" +
+                        "from Book as b inner join Publisher as p on b.publisher_id = p.publisher_id \n" +
+                        "               inner join Categories as c on b.category_id = c.category_id\n" +
+                        "		inner join [Language] as l on b.language_id = l.language_id\n" +
+                        "order by b.book_id desc";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Book book = new Book(); 
+                book.setId(rs.getInt("book_id"));
+                book.setName(rs.getString("bname"));
+                book.setPublicationYear(rs.getInt("publication_year"));
+                book.setNumberPages(rs.getInt("number_pages"));
+                book.setImg(rs.getString("img"));
+                book.setDescription(rs.getString("Description"));
+                book.setAuthor(rs.getString("author"));
+                Publisher p = new Publisher(); 
+                p.setId(rs.getInt("publisher_id"));
+                p.setName(rs.getString("pname"));
+                book.setPublisher(p);
+                Category c = new Category();
+                c.setId(rs.getInt("category_id"));
+                c.setName(rs.getString("cname"));
+                book.setCategory(c);
+                Language l = new Language(); 
+                l.setId(rs.getInt("language_id"));
+                l.setName(rs.getString("lname"));
+                book.setLanguage(l);
+                book.setLocation(rs.getString("location"));
+                top10books.add(book);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return top10books;
     }
 }
