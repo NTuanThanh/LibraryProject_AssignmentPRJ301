@@ -16,6 +16,10 @@
         <servlet-name>InsertPublisher</servlet-name>
         <servlet-class>controller.admin.InsertPublisher</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InsertLanguage</servlet-name>
+        <servlet-class>controller.admin.InsertLanguage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>InsertPublisher</servlet-name>
         <url-pattern>/admin/publisher/insert</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertLanguage</servlet-name>
+        <url-pattern>/admin/language/insert</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
