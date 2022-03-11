@@ -128,7 +128,8 @@
                     <c:forEach var = "i" begin = "1" end = "5">
                        <a href ="#" class = "book-item">
                         <figure>
-                           <img src="images/books/1.jpg" alt="Đắc nhân tâm"/>
+                           <img src="images/books/16d5362dccc37c978c330de741104f9e.jpeg" alt=""/>
+<!--                           <img src="images/books/1.jpg" alt="Đắc nhân tâm"/>-->
                         </figure>                           
                         <div class = "book-info">
                             <p class = "book-title">Đắc Nhân Tâm</p>

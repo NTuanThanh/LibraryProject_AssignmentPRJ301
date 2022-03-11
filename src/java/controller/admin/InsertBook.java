@@ -29,7 +29,7 @@ import modal.Publisher;
  * @author pv
  */
 @MultipartConfig(
-        fileSizeThreshold   = 1024 * 1024 * 2,  // 1 MB
+        fileSizeThreshold   = 1024 * 1024 * 1,  // 1 MB
         maxFileSize         = 1024 * 1024 * 10, // 10 MB
         maxRequestSize      = 1024 * 1024 * 50, //50 MB
         location = "C:\\Users\\pv\\Desktop\\Assignment PRJ301\\Assignment_Library\\web\\images\\books"// 15 MB
@@ -54,6 +54,8 @@ public class InsertBook extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("bname"); 
         int publisher_id = Integer.parseInt(request.getParameter("publisher_id")); 
         int category_id = Integer.parseInt(request.getParameter("category_id"));
@@ -67,27 +69,27 @@ public class InsertBook extends HttpServlet {
         Part part = request.getPart("img");
         String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
         part.write(filename);
-//        // insert dữ liệu vào database
-//        Book book = new Book();
-//        Publisher publisher = new Publisher();
-//        publisher.setId(publisher_id);
-//        Category category = new Category();
-//        category.setId(category_id);
-//        Language language = new Language(); 
-//        language.setId(language_id);
-//        book.setName(name);
-//        book.setPublisher(publisher);
-//        book.setCategory(category);
-//        book.setLanguage(language);
-//        book.setDescription(descrip);
-//        book.setPublicationYear(publication_year);
-//        book.setAuthor(author);
-//        book.setNumberPages(numberPage);
-//        book.setLocation(location);
-//        book.setImg(filename);
-//        // insert 
-//        BookDBContext bookdb = new BookDBContext(); 
-//        bookdb.insert(book);
+        // insert dữ liệu vào database
+        Book book = new Book();
+        Publisher publisher = new Publisher();
+        publisher.setId(publisher_id);
+        Category category = new Category();
+        category.setId(category_id);
+        Language language = new Language(); 
+        language.setId(language_id);
+        book.setName(name);
+        book.setPublisher(publisher);
+        book.setCategory(category);
+        book.setLanguage(language);
+        book.setDescription(descrip);
+        book.setPublicationYear(publication_year);
+        book.setAuthor(author);
+        book.setNumberPages(numberPage);
+        book.setLocation(location);
+        book.setImg(filename);     
+        // insert 
+        BookDBContext bookdb = new BookDBContext(); 
+        bookdb.insert(book);
     }
 
 }

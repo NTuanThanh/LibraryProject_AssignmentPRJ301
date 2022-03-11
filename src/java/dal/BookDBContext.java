@@ -48,8 +48,8 @@ public class BookDBContext extends DBContext{
             stm.setString(5, b.getDescription());
             stm.setString(6, b.getAuthor());
             stm.setInt(7, b.getPublisher().getId());
-            stm.setString(8, b.getLocation());
-            stm.setInt(9, b.getLanguage().getId());
+            stm.setInt(8, b.getLanguage().getId());
+            stm.setString(9, b.getLocation());
             stm.setInt(10, b.getCategory().getId());
             stm.executeUpdate(); 
         } catch (SQLException ex) {
