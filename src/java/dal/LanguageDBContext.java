@@ -8,6 +8,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modal.Language;
@@ -17,7 +18,7 @@ import modal.Language;
  * @author pv
  */
 public class LanguageDBContext extends DBContext{
-      public void insert(Language l){
+    public void insert(Language l){
         PreparedStatement stm = null;
         try {
             String sql = "INSERT INTO [Language]\n" +
@@ -45,7 +46,7 @@ public class LanguageDBContext extends DBContext{
             }
         }    
     }
-   public boolean checkExistLname(String lname){
+    public boolean checkExistLname(String lname){
         try {
             String sql = "select name_language from [Language] where name_language like ?"; 
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -59,4 +60,21 @@ public class LanguageDBContext extends DBContext{
         }
         return false;       
     }
+    public ArrayList<Language> getLanguages(){
+        ArrayList<Language> languages = new ArrayList<>(); 
+        try {
+            String sql = "select language_id, name_language from Language"; 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery(); 
+            while(rs.next()){
+               Language l = new Language();
+               l.setId(rs.getInt("language_id"));
+               l.setName(rs.getString("name_language"));
+               languages.add(l); 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LanguageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return languages; 
+    }  
 }

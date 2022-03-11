@@ -8,6 +8,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modal.Publisher;
@@ -58,5 +59,22 @@ public class PublisherDBContext extends DBContext{
             Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;       
+    }
+   public ArrayList<Publisher> getPublisher() {
+        ArrayList<Publisher> publishers = new ArrayList<>();
+        try {
+            String sql = "select publisher_id, [name] from Publisher";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Publisher p = new Publisher(); 
+                p.setId(rs.getInt("publisher_id"));
+                p.setName(rs.getString("name"));
+                publishers.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LanguageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return publishers;
     }
 }

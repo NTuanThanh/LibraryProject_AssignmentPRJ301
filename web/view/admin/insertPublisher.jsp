@@ -15,7 +15,7 @@
         <!-- Tạm -->
         <form action = "insert" method = "POST">
             <input type="text" name = "publisherName" />
-            ${requestScope.message_ExistCategoryName}
+            ${requestScope.message_ExistPublisherName}
             <br/>
             <input type="submit" value = "save">
         </form>

@@ -48,8 +48,8 @@ public class InsertPublisher extends HttpServlet {
         if(publisherName != null || publisherName.trim().length() > 0){
             // nếu có thì chuyển lại trang insert và thông báo message là đã có
             if (checkExistCname == true) {
-                request.setAttribute("message_ExistCategoryName", "Nhà Xuất Bản Này Đã Tồn Tại");
-                request.getRequestDispatcher("../../view/admin/insertCategory.jsp").forward(request, response);
+                request.setAttribute("message_ExistPublisherName", "Nhà Xuất Bản Này Đã Tồn Tại");
+                request.getRequestDispatcher("../../view/admin/insertPublisher.jsp").forward(request, response);
             }else{
                 Publisher p = new Publisher();
                 p.setName(publisherName);
