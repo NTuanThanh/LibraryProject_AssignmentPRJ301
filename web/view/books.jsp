@@ -19,6 +19,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <link href="css/stylehome.css" rel="stylesheet" type="text/css"/>     
         <link href="css/books.css" rel="stylesheet" type="text/css"/>
+        <script src="js/pagination/pagger.js" type="text/javascript"></script>
         <c:set var = "now" value = "<%= new java.util.Date()%>" />
     </head>
     <body>
@@ -137,19 +138,13 @@
                         <!--Pagination -->
                         <!-- This is pagination -->
                         <div class = "books-pagination">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">First</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Last</a></li>
+                            <ul class="pagination" id = "paggerTop">
+                                
                             </ul>
                         </div>
                         <!--Show books-->
                         <div class = "books-item">                   
-                            <c:forEach items="${requestScope.top10books}" var = "b">
+                            <c:forEach items="${requestScope.books}" var = "b">
                                <a href ="books/details?book-id=${b.id}" class = "book-item">
                                 <figure>
                                    <img src="images/books/${b.img}" alt="${b.name}"/>
@@ -164,14 +159,8 @@
                         </div>
                         <!-- This is pagination -->
                         <div class = "books-pagination">
-                            <ul class="pagination" id = "viewPagger">
-                                <li class="page-item"><a class="page-link" href="#">First</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Last</a></li>
+                            <ul class="pagination" id = "paggerBottom">
+                                
                             </ul>
                         </div>
                     </div>    
@@ -206,6 +195,9 @@
                 <a href="#"> thuviennghiloc4.edu.vn</a>
             </div>
         </footer>
-        
+        <script>
+            pagger_Books("paggerTop",2,${requestScope.totalPage},${requestScope.pageIndex});
+            pagger_Books("paggerBottom",2,${requestScope.totalPage},${requestScope.pageIndex});
+        </script>
     </body>
 </html>

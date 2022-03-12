@@ -5,6 +5,7 @@
  */
 package controller.user;
 
+import dal.BookDBContext;
 import dal.CategoryDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modal.Book;
 import modal.Category;
 
 /**
@@ -28,6 +30,10 @@ public class HomeController extends HttpServlet {
         CategoryDBContext categoryDB = new CategoryDBContext(); 
         ArrayList<Category> categories = categoryDB.getAllCategories();
         request.setAttribute("categories", categories);
+         // test dữ liệu, phân trang sau
+        BookDBContext bookDB = new BookDBContext();
+        ArrayList<Book> top10books = bookDB.getTop10books();
+        request.setAttribute("top10books",top10books);
         request.getRequestDispatcher("view/home.jsp").forward(request, response);
     }
 

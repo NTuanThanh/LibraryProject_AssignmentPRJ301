@@ -107,15 +107,15 @@
                     <p style="vertical-align: inherit">những quyển sách mới nhất</p>
                 </h2>
                 <div class = "books-item">                   
-                    <c:forEach var = "i" begin = "1" end = "10">
+                    <c:forEach items="${requestScope.top10books}" var = "b">
                        <a href ="#" class = "book-item">
                         <figure>
-                           <img src="images/books/1.jpg" alt="Đắc nhân tâm"/>
+                           <img src="images/books/${b.img}" alt="${b.name}"/>
                         </figure>                           
                         <div class = "book-info">
-                            <p class = "book-title">Đắc Nhân Tâm</p>
-                            <h3 class = "book-category">Tâm Lý - Kỹ Năng Sống</h3>
-                            <p class = "book-author">Tác giả : Mr a</p>
+                            <p class = "book-title">${b.name}</p>
+                            <h3 class = "book-category">${b.category.name}</h3>
+                            <p class = "book-author">${b.author}</p>
                         </div>
                     </a>
                    </c:forEach>

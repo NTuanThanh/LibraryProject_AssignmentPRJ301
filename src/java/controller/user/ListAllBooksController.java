@@ -29,9 +29,19 @@ public class ListAllBooksController extends HttpServlet {
         CategoryDBContext categoryDB = new CategoryDBContext();
         BookDBContext bookDB = new BookDBContext(); 
         ArrayList<Category> categories = categoryDB.getAllCategories();
-        // test dữ liệu, phân trang sau
-        ArrayList<Book> top10books = bookDB.getTop10books();
-        request.setAttribute("top10books",top10books);
+        // phân trang
+        int pageSize = 10; 
+        String page = request.getParameter("page");
+        if(page == null || page.trim().length() == 0){
+            page = "1"; 
+        }
+        int pageIndex = Integer.parseInt(page);
+        ArrayList<Book> books = bookDB.getAllBooks(pageIndex, pageSize);
+        int count = bookDB.count(); 
+        int totalPage = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize) + 1;
+        request.setAttribute("books",books);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("pageIndex", pageIndex);
         request.setAttribute("categories", categories);
         request.getRequestDispatcher("view/books.jsp").forward(request, response);
     }
