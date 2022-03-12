@@ -65,31 +65,46 @@ public class InsertBook extends HttpServlet {
         String author = request.getParameter("author"); 
         int numberPage = Integer.parseInt(request.getParameter("numberpage")); 
         String location = request.getParameter("location"); 
-        // xử lý ảnh 
-        Part part = request.getPart("img");
-        String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-        part.write(filename);
-        // insert dữ liệu vào database
-        Book book = new Book();
-        Publisher publisher = new Publisher();
-        publisher.setId(publisher_id);
-        Category category = new Category();
-        category.setId(category_id);
-        Language language = new Language(); 
-        language.setId(language_id);
-        book.setName(name);
-        book.setPublisher(publisher);
-        book.setCategory(category);
-        book.setLanguage(language);
-        book.setDescription(descrip);
-        book.setPublicationYear(publication_year);
-        book.setAuthor(author);
-        book.setNumberPages(numberPage);
-        book.setLocation(location);
-        book.setImg(filename);     
-        // insert 
+        // kiểm tra sách vừa nhập đã tồn tại trong dbi chưa
         BookDBContext bookdb = new BookDBContext(); 
-        bookdb.insert(book);
+        boolean checkExistBook = bookdb.checkExistBook(name, publication_year, author, category_id, publisher_id, language_id);
+        if(checkExistBook == true){
+            CategoryDBContext categoryDB = new CategoryDBContext(); 
+            PublisherDBContext publisherDB = new PublisherDBContext();
+            LanguageDBContext languageDB = new LanguageDBContext(); 
+            ArrayList<Category> categories = categoryDB.getAllCategories();
+            ArrayList<Publisher> publishers = publisherDB.getPublisher();
+            ArrayList<Language> Languages = languageDB.getLanguages();
+            request.setAttribute("categories", categories);
+            request.setAttribute("publishers", publishers);
+            request.setAttribute("languages", Languages);
+             request.setAttribute("message_ExistBook", "Sách bạn vừa thêm đã tồn tại");
+             request.getRequestDispatcher("../../view/admin/insertBook.jsp").forward(request, response);
+        }else{
+//            // xử lý ảnh 
+//            Part part = request.getPart("img");
+//            String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+//            part.write(filename);
+//            // insert dữ liệu vào database
+//            Book book = new Book();
+//            Publisher publisher = new Publisher();
+//            publisher.setId(publisher_id);
+//            Category category = new Category();
+//            category.setId(category_id);
+//            Language language = new Language(); 
+//            language.setId(language_id);
+//            book.setName(name);
+//            book.setPublisher(publisher);
+//            book.setCategory(category);
+//            book.setLanguage(language);
+//            book.setDescription(descrip);
+//            book.setPublicationYear(publication_year);
+//            book.setAuthor(author);
+//            book.setNumberPages(numberPage);
+//            book.setLocation(location);
+//            book.setImg(filename);     
+//            // insert 
+//            bookdb.insert(book);
+        }      
     }
-
 }

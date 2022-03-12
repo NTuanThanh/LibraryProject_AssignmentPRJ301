@@ -61,6 +61,26 @@ public class BookDBContext extends DBContext{
             Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }      
     }
+    public boolean checkExistBook(String bname, int publicationYear, String author, int cid, int pid, int lid){
+        try {
+            String sql = "select * from Book where [name] like ? and publication_year = ? and author like ?\n" +
+                    " and publisher_id = ? and language_id = ? and category_id = ? "; 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, "%"+ bname +"%");
+            stm.setInt(2, publicationYear);
+            stm.setString(3, "%"+ author +"%");
+            stm.setInt(4, pid);
+            stm.setInt(5, lid);
+            stm.setInt(6, cid);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                return true;
+            }
+      } catch (SQLException ex) {
+            Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return false;  
+    }
     public ArrayList<Book> getTop10books(){
         ArrayList<Book> top10books = new ArrayList<>(); 
         try {

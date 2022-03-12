@@ -42,6 +42,7 @@
         Ảnh : <input type ="file" name = "img"/><br>
         <input type="submit" value = "Thêm"> 
         <input type="reset" value = "Reset">
+        ${requestScope.message_ExistBook}
         </form>
     </body>
 </html>

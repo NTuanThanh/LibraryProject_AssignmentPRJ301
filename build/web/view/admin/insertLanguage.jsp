@@ -15,7 +15,7 @@
         <!-- Tạm -->
         <form action = "insert" method = "POST">
             <input type="text" name = "languageName" />
-            ${requestScope.message_ExistCategoryName}
+            ${requestScope.message_ExistLanguageName}
             <br/>
             <input type="submit" value = "save">
         </form>

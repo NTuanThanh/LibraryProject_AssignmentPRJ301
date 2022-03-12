@@ -41,7 +41,7 @@ public class InsertLanguage extends HttpServlet {
         if(languageName != null || languageName.trim().length() > 0){
             // nếu có thì chuyển lại trang insert và thông báo message là đã có
             if (checkExistLname == true) {
-                request.setAttribute("message_ExistCategoryName", "Tên ngôn ngữ này đã tồn tại");
+                request.setAttribute("message_ExistLanguageName", "Tên ngôn ngữ này đã tồn tại");
                 request.getRequestDispatcher("../../view/admin/insertLanguage.jsp").forward(request, response);
             }else{
                 Language l = new Language(); 
