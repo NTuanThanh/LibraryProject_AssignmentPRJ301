@@ -195,7 +195,7 @@ public class BookDBContext extends DBContext{
             HashMap<Integer, Object[]> parameters = new HashMap<>();
             int paramIndex = 0;
             if(cid != -1){
-                sql += "And b.category_id = ?";
+                sql += "And b.category_id = ? ";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = Integer.class.getTypeName();
@@ -203,7 +203,7 @@ public class BookDBContext extends DBContext{
                 parameters.put(paramIndex, param);
             }
             if(pid != -1){
-                sql += "And b.publisher_id =  ?";
+                sql += "And b.publisher_id =  ? ";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = Integer.class.getTypeName();
@@ -211,7 +211,7 @@ public class BookDBContext extends DBContext{
                 parameters.put(paramIndex, param);
             }
             if(from != -1){
-                sql += "And b.publication_year >= ?";
+                sql += "And b.publication_year >= ? ";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = Integer.class.getTypeName();
@@ -219,7 +219,7 @@ public class BookDBContext extends DBContext{
                 parameters.put(paramIndex, param);
             }
             if(to != -1){
-                sql += "And b.publication_year <= ?";
+                sql += "And b.publication_year <= ? ";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = Integer.class.getTypeName();
@@ -227,19 +227,19 @@ public class BookDBContext extends DBContext{
                 parameters.put(paramIndex, param);
             }
             if(bname != null){
-                sql += "and b.[name] like '% ? %' ";
+                sql += "And b.[name] like '%' + ? + '%' ";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = String.class.getTypeName();
-                param[1] = to;
+                param[1] = bname;
                 parameters.put(paramIndex, param);
             }
             if(author != null){
-                sql += "and b.author like '% ? %' ";
+                sql += "And b.author like '%' + ? + '%' ";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = String.class.getTypeName();
-                param[1] = to;
+                param[1] = author;
                 parameters.put(paramIndex, param);
             }
             sql += ") as tbl where row_index >= ( ? - 1 ) * ? + 1 and row_index <= ? * ?";
@@ -247,7 +247,7 @@ public class BookDBContext extends DBContext{
             paramIndex++;
             Object[] param = new Object[2];
             param[0] = Integer.class.getTypeName();
-            param[1] = paramIndex; 
+            param[1] = pageIndex; 
             parameters.put(paramIndex, param);
             // dấu hỏi số 2 của where row_index >= ....
             paramIndex++;
@@ -311,5 +311,89 @@ public class BookDBContext extends DBContext{
             Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return books; 
+    }
+    public int countAdvanceSearch(int cid, int pid, int from, int to, String bname, String author){
+        try {
+            String sql = "select Count(*) as Total from ( select ROW_NUMBER() OVER(order by b.book_id desc) as row_index, \n" +
+                            "     book_id, b.[name] as bname, publication_year, number_pages, img, [Description], author,\n" +
+                            "     p.publisher_id, p.[name] as pname, l.language_id, l.name_language as lname, c.category_id, c.[name] as cname, [location]\n" +
+                            "     from Book as b inner join Publisher as p on b.publisher_id = p.publisher_id\n" +
+                            "     inner join Categories as c on b.category_id = c.category_id\n" +
+                            "     inner join [Language] as l on b.language_id = l.language_id where\n" +
+                            "     (1=1) ) as t ";
+            HashMap<Integer, Object[]> parameters = new HashMap<>();
+            int paramIndex = 0;
+            if(cid != -1){
+                sql += "And b.category_id = ?";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = Integer.class.getTypeName();
+                param[1] = cid;
+                parameters.put(paramIndex, param);
+            }
+            if(pid != -1){
+                sql += "And b.publisher_id =  ?";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = Integer.class.getTypeName();
+                param[1] = pid;
+                parameters.put(paramIndex, param);
+            }
+            if(from != -1){
+                sql += "And b.publication_year >= ?";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = Integer.class.getTypeName();
+                param[1] = from;
+                parameters.put(paramIndex, param);
+            }
+            if(to != -1){
+                sql += "And b.publication_year <= ?";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = Integer.class.getTypeName();
+                param[1] = to;
+                parameters.put(paramIndex, param);
+            }
+            if(bname != null){
+                sql += "and b.[name] like '% ? %' ";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = String.class.getTypeName();
+                param[1] = to;
+                parameters.put(paramIndex, param);
+            }
+            if(author != null){
+                sql += "and b.author like '% ? %' ";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = String.class.getTypeName();
+                param[1] = to;
+                parameters.put(paramIndex, param);
+            }
+            PreparedStatement stm = connection.prepareStatement(sql); 
+            //parameters
+            for (Map.Entry<Integer, Object[]> entry : parameters.entrySet()) {
+                Integer index = entry.getKey();
+                Object[] value = entry.getValue();
+                String type = value[0].toString();
+                if(type.equals(Integer.class.getName()))
+                {
+                    stm.setInt(index, Integer.parseInt(value[1].toString()));
+                }
+                else if (type.equals(String.class.getName()))
+                {
+                    stm.setString(index, value[1].toString());
+                }
+            }
+            ResultSet rs = stm.executeQuery(); 
+            while(rs.next()){
+                return rs.getInt("Total");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 }

@@ -28,6 +28,7 @@ public class ListAllBooksController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         CategoryDBContext categoryDB = new CategoryDBContext();
         BookDBContext bookDB = new BookDBContext();
         PublisherDBContext publisherDB = new PublisherDBContext(); 
@@ -41,8 +42,43 @@ public class ListAllBooksController extends HttpServlet {
         }
         int pageIndex = Integer.parseInt(page);
         if(pageIndex < 1) pageIndex = 1;
-        ArrayList<Book> books = bookDB.getAllBooks(pageIndex, pageSize);
-        int count = bookDB.count(); 
+        // Searching : 
+        //cid=&pid=&from=&to=&bname=&aname=
+        String raw_cid = request.getParameter("cid"); 
+        String raw_pid = request.getParameter("pid"); 
+        String raw_from = request.getParameter("from");
+        String raw_to = request.getParameter("to");
+        String raw_bname = request.getParameter("bname"); 
+        String raw_author = request.getParameter("author"); 
+        
+        if(raw_cid == null || raw_cid.length() == 0){
+           raw_cid = "-1"; 
+        }
+        if(raw_pid == null || raw_pid.length() == 0){
+           raw_pid = "-1"; 
+        }
+        if(raw_from == null || raw_from.length() == 0){
+           raw_from = "-1"; 
+        }
+        if(raw_to == null || raw_to.length() == 0){
+           raw_to = "-1"; 
+        }
+        if(raw_bname == null || raw_bname.length() == 0){
+            raw_bname = null;
+        }
+        if(raw_author == null || raw_author.length() == 0){
+            raw_author = null;
+        } 
+        int cid = Integer.parseInt(raw_cid); 
+        int pid = Integer.parseInt(raw_pid); 
+        int from = Integer.parseInt(raw_from); 
+        int to = Integer.parseInt(raw_to);
+        String bname = raw_bname; 
+        String author = raw_author; 
+
+        // Lấy ra book từ những dữ liệu trên 
+        ArrayList<Book> books = bookDB.advancedSearch(cid, pid, from, to, bname, author, pageIndex, pageSize);
+        int count = bookDB.countAdvanceSearch(cid, pid, from, to, bname, author);
         int totalPage = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize) + 1;
         request.setAttribute("books",books);
         request.setAttribute("totalPage", totalPage);

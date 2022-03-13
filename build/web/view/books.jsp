@@ -106,7 +106,7 @@
                     <div class = "block-books-left">
                         <div class="sidebar-title">Tìm kiếm nâng cao</div>
                         <!-- Advanced Search-->
-                        <form action = "test" method="GET">
+                        <form action = "books" method="GET">
                             <div class="advanced-search">
                                 <div class = "advanced-search-item">
                                     <label for="category">Theo Danh Mục</label>
@@ -140,7 +140,7 @@
                                 </div>
                                 <div class = "advanced-search-item second">
                                    <label for="author" class="mr-sm-2">Tên Tác Giả</label>
-                                   <input type="text" class="form-control" name ="aname" id="author" placeholder="Nhập vào tên tác giả" >
+                                   <input type="text" class="form-control" name ="author" id="author" placeholder="Nhập vào tên tác giả" >
                                 </div>
                             </div>
                             <div class = "advanced-search-submit">
