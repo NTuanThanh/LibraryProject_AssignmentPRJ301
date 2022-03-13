@@ -320,11 +320,11 @@ public class BookDBContext extends DBContext{
                             "     from Book as b inner join Publisher as p on b.publisher_id = p.publisher_id\n" +
                             "     inner join Categories as c on b.category_id = c.category_id\n" +
                             "     inner join [Language] as l on b.language_id = l.language_id where\n" +
-                            "     (1=1) ) as t ";
+                            "     (1=1) ";
             HashMap<Integer, Object[]> parameters = new HashMap<>();
             int paramIndex = 0;
             if(cid != -1){
-                sql += "And b.category_id = ?";
+                sql += "And b.category_id = ? ";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = Integer.class.getTypeName();
@@ -332,7 +332,7 @@ public class BookDBContext extends DBContext{
                 parameters.put(paramIndex, param);
             }
             if(pid != -1){
-                sql += "And b.publisher_id =  ?";
+                sql += "And b.publisher_id =  ? ";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = Integer.class.getTypeName();
@@ -340,7 +340,7 @@ public class BookDBContext extends DBContext{
                 parameters.put(paramIndex, param);
             }
             if(from != -1){
-                sql += "And b.publication_year >= ?";
+                sql += "And b.publication_year >= ? ";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = Integer.class.getTypeName();
@@ -348,7 +348,7 @@ public class BookDBContext extends DBContext{
                 parameters.put(paramIndex, param);
             }
             if(to != -1){
-                sql += "And b.publication_year <= ?";
+                sql += "And b.publication_year <= ? ";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = Integer.class.getTypeName();
@@ -356,21 +356,22 @@ public class BookDBContext extends DBContext{
                 parameters.put(paramIndex, param);
             }
             if(bname != null){
-                sql += "and b.[name] like '% ? %' ";
+                sql += "And b.[name] like '%' + ? + '%' ";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = String.class.getTypeName();
-                param[1] = to;
+                param[1] = bname;
                 parameters.put(paramIndex, param);
             }
             if(author != null){
-                sql += "and b.author like '% ? %' ";
+                sql += "And b.author like '%' + ? + '%' ";
                 paramIndex++;
                 Object[] param = new Object[2];
                 param[0] = String.class.getTypeName();
-                param[1] = to;
+                param[1] = author;
                 parameters.put(paramIndex, param);
             }
+            sql += ") as t"; 
             PreparedStatement stm = connection.prepareStatement(sql); 
             //parameters
             for (Map.Entry<Integer, Object[]> entry : parameters.entrySet()) {
@@ -395,5 +396,20 @@ public class BookDBContext extends DBContext{
             Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
+    }
+    public ArrayList<Integer> getPublicationYear(){
+        ArrayList<Integer> publicationYears = new ArrayList<>(); 
+        try {
+            String sql = "select distinct publication_year from book Order by publication_year desc"; 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                int temp = rs.getInt("publication_year"); 
+                publicationYears.add(temp); 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return publicationYears;         
     }
 }

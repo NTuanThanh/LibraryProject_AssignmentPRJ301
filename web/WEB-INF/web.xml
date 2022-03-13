@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>ListAllBooksController</servlet-name>
-        <servlet-class>controller.user.ListAllBooksController</servlet-class>
+        <servlet-class>controller.user.BooksController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>InsertCategory</servlet-name>

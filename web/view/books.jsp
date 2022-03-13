@@ -79,8 +79,8 @@
                                         </c:forEach>
                                     </div>
                                 </div>            
-                                <form class="form-inline" action = "">
-                                    <input class="form-control mr-sm-2" type="search" placeholder="Sách cần tìm...">
+                                <form class="form-inline" action = "books" method="GET">
+                                    <input class="form-control mr-sm-2" type="search" name = "bname"  placeholder="Sách cần tìm...">
                                     <button class="btn btn-warning" type="submit">Tìm Kiếm</button>
                                 </form>          
                             </div>
@@ -113,7 +113,7 @@
                                     <select class="form-control" id="category" name = "cid">
                                         <option value>Chọn Tên Danh Mục</option>
                                         <c:forEach items = "${requestScope.categories}" var = "c">
-                                            <option value = "${c.id}">${c.name}</option>
+                                            <option ${requestScope.cid == c.id?"selected = selected":""} value = "${c.id}">${c.name}</option>
                                         </c:forEach>                                        
                                     </select>
                                 </div>
@@ -122,30 +122,41 @@
                                     <select class="form-control" id="publisher" name = "pid">
                                         <option value>Chọn Tên Nhà Xuất Bản</option>
                                         <c:forEach items = "${requestScope.publishers}" var = "p">
-                                            <option value = "${p.id}">${p.name}</option>
+                                            <option ${requestScope.pid == p.id?"selected = selected":""} value = "${p.id}">${p.name}</option>
                                         </c:forEach>                                        
                                     </select>
                                 </div>
                                 <div class = "advanced-search-item">
-                                    <label for="title" class="mr-sm-2">Xuất Bản Từ Năm</label>
-                                    <input type="text" class="form-control" name = "from" id="title" placeholder="Nhập vào năm bắt đầu từ" >
+                                    <label for="publication_from">Xuất Bản Từ Năm</label>
+                                    <select class="form-control" id="publication_from" name = "from">
+                                        <option value>Chọn Năm Bắt Đầu Từ</option>
+                                        <c:forEach items = "${requestScope.publicationYears}" var = "y">
+                                            <option ${requestScope.from == y?"selected = selected":""} value = "${y}">${y}</option>
+                                        </c:forEach>                                        
+                                    </select>
                                 </div>
-                                <div class = "advanced-search-item">
-                                   <label for="author" class="mr-sm-2">Đến Năm</label>
-                                   <input type="text" class="form-control" name = "to" id="author" placeholder="Nhập vào năm kết thúc" >
+                                 <div class = "advanced-search-item">
+                                    <label for="publication_to">Đến Năm</label>
+                                    <select class="form-control" id="publication_to" name = "to">
+                                        <option value>Chọn Năm Kết Thúc</option>
+                                        <c:forEach items = "${requestScope.publicationYears}" var = "y">
+                                            <option ${requestScope.to == y?"selected = selected":""} value = "${y}">${y}</option>
+                                        </c:forEach>                                        
+                                    </select>
                                 </div>
                                 <div class = "advanced-search-item second">
                                    <label for="author" class="mr-sm-2">Tên Sách</label>
-                                   <input type="text" class="form-control" name ="bname"  id="author" placeholder="Nhập vào tên sách" >
+                                   <input value="${requestScope.bname}" type="text" class="form-control" name ="bname"  id="author" placeholder="Nhập vào tên sách" >
                                 </div>
                                 <div class = "advanced-search-item second">
                                    <label for="author" class="mr-sm-2">Tên Tác Giả</label>
-                                   <input type="text" class="form-control" name ="author" id="author" placeholder="Nhập vào tên tác giả" >
+                                   <input value="${requestScope.author}" type="text" class="form-control" name ="author" id="author" placeholder="Nhập vào tên tác giả" >
                                 </div>
                             </div>
                             <div class = "advanced-search-submit">
                                 <button class="btn btn-danger" type="submit">Tìm Kiếm</button>
                             </div>
+                                
                         </form>
                         <!--Show all books -->
                         <!--Pagination -->
@@ -209,7 +220,10 @@
             </div>
         </footer>
         <script>
-            pagger_Books("paggerBottom",2,${requestScope.totalPage},${requestScope.pageIndex});
+            // có sách mới phân trang 
+            if(${requestScope.books.size() > 0}){
+               pagger_Books("paggerBottom",2,${requestScope.totalPage},${requestScope.pageIndex},'${requestScope.url}'); 
+            }
         </script>
     </body>
 </html>

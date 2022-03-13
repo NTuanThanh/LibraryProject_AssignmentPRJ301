@@ -54,7 +54,7 @@
                             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item color-menu">
-                                        <a class="nav-link" href="#">Trang chủ</a>
+                                        <a class="nav-link" href="home">Trang chủ</a>
                                     </li>
                                     <li class="nav-item color-menu">
                                         <a class="nav-link" href="#">Thông báo</a>
@@ -79,8 +79,8 @@
                                         </c:forEach>
                                     </div>
                                 </div>            
-                                <form class="form-inline" action = "">
-                                    <input class="form-control mr-sm-2" type="search" placeholder="Sách cần tìm...">
+                                <form class="form-inline" action = "books" method="GET">
+                                    <input class="form-control mr-sm-2" type="search" name ="bname" placeholder="Sách cần tìm...">
                                     <button class="btn btn-warning" type="submit">Tìm Kiếm</button>
                                 </form>          
                             </div>

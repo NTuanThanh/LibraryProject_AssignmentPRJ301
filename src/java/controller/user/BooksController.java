@@ -23,7 +23,7 @@ import modal.Publisher;
  *
  * @author pv
  */
-public class ListAllBooksController extends HttpServlet {
+public class BooksController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,6 +34,7 @@ public class ListAllBooksController extends HttpServlet {
         PublisherDBContext publisherDB = new PublisherDBContext(); 
         ArrayList<Publisher> publishers = publisherDB.getPublisher();
         ArrayList<Category> categories = categoryDB.getAllCategories();
+        ArrayList<Integer> publicationYears = bookDB.getPublicationYear();
         // phân trang
         int pageSize = 10; 
         String page = request.getParameter("page");
@@ -85,27 +86,36 @@ public class ListAllBooksController extends HttpServlet {
         request.setAttribute("pageIndex", pageIndex);
         request.setAttribute("categories", categories);
         request.setAttribute("publishers", publishers);
+        request.setAttribute("publicationYears", publicationYears);
+        // sau khi đã search thì vẫn select những dữ liệu mà mình đã chọn search 
+        request.setAttribute("cid", cid);
+        request.setAttribute("pid", pid);
+        request.setAttribute("from", from);
+        request.setAttribute("to", to);
+        request.setAttribute("bname", bname);
+        request.setAttribute("author", author);
+        // lấy Url để phân trang bằng js 
+        String url = "books?";
+        String url_param = request.getQueryString();
+        if(url_param != null && url_param.length() > 0){
+            if(url_param.endsWith("page=" + pageIndex)){
+               url_param = url_param.replaceAll("page=" +pageIndex, "");      
+            }
+            // nếu nó không rời vào trường hợp book?page=x và thiếu & thì thêm vào
+            if(!url_param.equals("") && !url_param.endsWith("&")){
+                url_param += "&"; 
+            }
+            url += (url_param); 
+        }
+        request.setAttribute("url", url);
         request.getRequestDispatcher("view/books.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
