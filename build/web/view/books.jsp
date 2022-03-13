@@ -106,28 +106,41 @@
                     <div class = "block-books-left">
                         <div class="sidebar-title">Tìm kiếm nâng cao</div>
                         <!-- Advanced Search-->
-                        <form>
+                        <form action = "test" method="GET">
                             <div class="advanced-search">
-                                <div class = "advanced-search-item category">
+                                <div class = "advanced-search-item">
                                     <label for="category">Theo Danh Mục</label>
-                                    <select class="form-control" id="category">
-                                        <option>Chọn Tên Danh Mục</option>
+                                    <select class="form-control" id="category" name = "cid">
+                                        <option value>Chọn Tên Danh Mục</option>
                                         <c:forEach items = "${requestScope.categories}" var = "c">
-                                            <option>${c.name}</option>
-                                        </c:forEach>>                                        
+                                            <option value = "${c.id}">${c.name}</option>
+                                        </c:forEach>                                        
                                     </select>
                                 </div>
                                 <div class = "advanced-search-item">
-                                    <label for="title" class="mr-sm-2">Tên Sách</label>
-                                    <input type="text" class="form-control" id="title" placeholder="Nhập vào tên sách" >
+                                    <label for="publisher">Theo Nhà Xuất Bản</label>
+                                    <select class="form-control" id="publisher" name = "pid">
+                                        <option value>Chọn Tên Nhà Xuất Bản</option>
+                                        <c:forEach items = "${requestScope.publishers}" var = "p">
+                                            <option value = "${p.id}">${p.name}</option>
+                                        </c:forEach>                                        
+                                    </select>
                                 </div>
                                 <div class = "advanced-search-item">
+                                    <label for="title" class="mr-sm-2">Xuất Bản Từ Năm</label>
+                                    <input type="text" class="form-control" name = "from" id="title" placeholder="Nhập vào năm bắt đầu từ" >
+                                </div>
+                                <div class = "advanced-search-item">
+                                   <label for="author" class="mr-sm-2">Đến Năm</label>
+                                   <input type="text" class="form-control" name = "to" id="author" placeholder="Nhập vào năm kết thúc" >
+                                </div>
+                                <div class = "advanced-search-item second">
+                                   <label for="author" class="mr-sm-2">Tên Sách</label>
+                                   <input type="text" class="form-control" name ="bname"  id="author" placeholder="Nhập vào tên sách" >
+                                </div>
+                                <div class = "advanced-search-item second">
                                    <label for="author" class="mr-sm-2">Tên Tác Giả</label>
-                                   <input type="text" class="form-control" id="author" placeholder="Nhập vào tên tác giả" >
-                                </div>
-                                <div class = "advanced-search-item">
-                                   <label for="author" class="mr-sm-2">Tên Nhà Xuất Bản</label>
-                                   <input type="text" class="form-control" id="author" placeholder="Nhập vào nhà xuất bản" >
+                                   <input type="text" class="form-control" name ="aname" id="author" placeholder="Nhập vào tên tác giả" >
                                 </div>
                             </div>
                             <div class = "advanced-search-submit">
@@ -196,7 +209,6 @@
             </div>
         </footer>
         <script>
-            pagger_Books("paggerTop",2,${requestScope.totalPage},${requestScope.pageIndex});
             pagger_Books("paggerBottom",2,${requestScope.totalPage},${requestScope.pageIndex});
         </script>
     </body>

@@ -54,6 +54,10 @@
 .advanced-search .advanced-search-item{
     flex-basis: 24%; 
 }
+.advanced-search .second{
+    margin-top: 2px;
+    flex-basis: calc(50% - 12px);
+}
 .advanced-search-submit{
     display: flex;
     justify-content: center;

@@ -94,7 +94,6 @@ marquee{
 .books-item{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
 }
 .books-item .book-item{
     flex-basis: 18%;
@@ -106,6 +105,7 @@ marquee{
     background-color: #F7F7EF;
     border : 1px solid #E5E5E5;
     padding: 13px;
+    margin-left : 1.7%;
 }
 .books-item .book-item figure{
     position: relative;

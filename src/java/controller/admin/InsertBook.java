@@ -31,7 +31,7 @@ import modal.Publisher;
 @MultipartConfig(
         fileSizeThreshold   = 1024 * 1024 * 1,  // 1 MB
         maxFileSize         = 1024 * 1024 * 10, // 10 MB
-        maxRequestSize      = 1024 * 1024 * 50, //50 MB
+        maxRequestSize      = 1024 * 1024 * 70, //70 MB
         location = "C:\\Users\\pv\\Desktop\\Assignment PRJ301\\Assignment_Library\\web\\images\\books"// 15 MB
 )
 public class InsertBook extends HttpServlet {
@@ -78,33 +78,33 @@ public class InsertBook extends HttpServlet {
             request.setAttribute("categories", categories);
             request.setAttribute("publishers", publishers);
             request.setAttribute("languages", Languages);
-             request.setAttribute("message_ExistBook", "Sách bạn vừa thêm đã tồn tại");
-             request.getRequestDispatcher("../../view/admin/insertBook.jsp").forward(request, response);
+            request.setAttribute("message_ExistBook", "Sách bạn vừa thêm đã tồn tại");
+            request.getRequestDispatcher("../../view/admin/insertBook.jsp").forward(request, response);
         }else{
-//            // xử lý ảnh 
-//            Part part = request.getPart("img");
-//            String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-//            part.write(filename);
-//            // insert dữ liệu vào database
-//            Book book = new Book();
-//            Publisher publisher = new Publisher();
-//            publisher.setId(publisher_id);
-//            Category category = new Category();
-//            category.setId(category_id);
-//            Language language = new Language(); 
-//            language.setId(language_id);
-//            book.setName(name);
-//            book.setPublisher(publisher);
-//            book.setCategory(category);
-//            book.setLanguage(language);
-//            book.setDescription(descrip);
-//            book.setPublicationYear(publication_year);
-//            book.setAuthor(author);
-//            book.setNumberPages(numberPage);
-//            book.setLocation(location);
-//            book.setImg(filename);     
-//            // insert 
-//            bookdb.insert(book);
+            // xử lý ảnh 
+            Part part = request.getPart("img");
+            String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+            part.write(filename);
+            // insert dữ liệu vào database
+            Book book = new Book();
+            Publisher publisher = new Publisher();
+            publisher.setId(publisher_id);
+            Category category = new Category();
+            category.setId(category_id);
+            Language language = new Language(); 
+            language.setId(language_id);
+            book.setName(name);
+            book.setPublisher(publisher);
+            book.setCategory(category);
+            book.setLanguage(language);
+            book.setDescription(descrip);
+            book.setPublicationYear(publication_year);
+            book.setAuthor(author);
+            book.setNumberPages(numberPage);
+            book.setLocation(location);
+            book.setImg(filename);     
+            // insert 
+            bookdb.insert(book);
         }      
     }
 }

@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modal.Book;
@@ -179,5 +181,135 @@ public class BookDBContext extends DBContext{
             Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
+    }
+    public ArrayList<Book> advancedSearch(int cid, int pid, int from, int to, String bname, String author, int pageIndex, int pageSize){
+        ArrayList<Book> books = new ArrayList<>(); 
+        try {
+            String sql = "select * from ( select ROW_NUMBER() OVER(order by b.book_id desc) as row_index, \n" +
+                    " book_id, b.[name] as bname, publication_year, number_pages, img, [Description], author, \n" +
+                    " p.publisher_id, p.[name] as pname, l.language_id, l.name_language as lname, c.category_id, c.[name] as cname, [location] \n" +
+                    " from Book as b inner join Publisher as p on b.publisher_id = p.publisher_id \n" +
+                    " inner join Categories as c on b.category_id = c.category_id\n" +
+                    " inner join [Language] as l on b.language_id = l.language_id \n" +
+                    " And (1=1) ";
+            HashMap<Integer, Object[]> parameters = new HashMap<>();
+            int paramIndex = 0;
+            if(cid != -1){
+                sql += "And b.category_id = ?";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = Integer.class.getTypeName();
+                param[1] = cid;
+                parameters.put(paramIndex, param);
+            }
+            if(pid != -1){
+                sql += "And b.publisher_id =  ?";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = Integer.class.getTypeName();
+                param[1] = pid;
+                parameters.put(paramIndex, param);
+            }
+            if(from != -1){
+                sql += "And b.publication_year >= ?";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = Integer.class.getTypeName();
+                param[1] = from;
+                parameters.put(paramIndex, param);
+            }
+            if(to != -1){
+                sql += "And b.publication_year <= ?";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = Integer.class.getTypeName();
+                param[1] = to;
+                parameters.put(paramIndex, param);
+            }
+            if(bname != null){
+                sql += "and b.[name] like '% ? %' ";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = String.class.getTypeName();
+                param[1] = to;
+                parameters.put(paramIndex, param);
+            }
+            if(author != null){
+                sql += "and b.author like '% ? %' ";
+                paramIndex++;
+                Object[] param = new Object[2];
+                param[0] = String.class.getTypeName();
+                param[1] = to;
+                parameters.put(paramIndex, param);
+            }
+            sql += ") as tbl where row_index >= ( ? - 1 ) * ? + 1 and row_index <= ? * ?";
+            // dấu hỏi số 1 của where row_index >= ....
+            paramIndex++;
+            Object[] param = new Object[2];
+            param[0] = Integer.class.getTypeName();
+            param[1] = paramIndex; 
+            parameters.put(paramIndex, param);
+            // dấu hỏi số 2 của where row_index >= ....
+            paramIndex++;
+            param = new Object[2];
+            param[0] = Integer.class.getTypeName();
+            param[1] = pageSize; 
+            parameters.put(paramIndex, param);
+            // dấu hỏi số 3 của where row_index >= ....
+            paramIndex++;
+            param = new Object[2];
+            param[0] = Integer.class.getTypeName();
+            param[1] = pageSize; 
+            parameters.put(paramIndex, param);
+            // dấu hỏi số 4 của where row_index >= ....
+            paramIndex++;
+            param = new Object[2];
+            param[0] = Integer.class.getTypeName();
+            param[1] = pageIndex; 
+            parameters.put(paramIndex, param);
+            PreparedStatement stm = connection.prepareStatement(sql); 
+            //parameters
+            for (Map.Entry<Integer, Object[]> entry : parameters.entrySet()) {
+                Integer index = entry.getKey();
+                Object[] value = entry.getValue();
+                String type = value[0].toString();
+                if(type.equals(Integer.class.getName()))
+                {
+                    stm.setInt(index, Integer.parseInt(value[1].toString()));
+                }
+                else if (type.equals(String.class.getName()))
+                {
+                    stm.setString(index, value[1].toString());
+                }
+            }
+            ResultSet rs = stm.executeQuery(); 
+            while(rs.next()){
+                Book book = new Book(); 
+                book.setId(rs.getInt("book_id"));
+                book.setName(rs.getString("bname"));
+                book.setPublicationYear(rs.getInt("publication_year"));
+                book.setNumberPages(rs.getInt("number_pages"));
+                book.setImg(rs.getString("img"));
+                book.setDescription(rs.getString("Description"));
+                book.setAuthor(rs.getString("author"));
+                Publisher p = new Publisher(); 
+                p.setId(rs.getInt("publisher_id"));
+                p.setName(rs.getString("pname"));
+                book.setPublisher(p);
+                Category c = new Category();
+                c.setId(rs.getInt("category_id"));
+                c.setName(rs.getString("cname"));
+                book.setCategory(c);
+                Language l = new Language(); 
+                l.setId(rs.getInt("language_id"));
+                l.setName(rs.getString("lname"));
+                book.setLanguage(l);
+                book.setLocation(rs.getString("location"));
+                books.add(book);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return books; 
     }
 }

@@ -7,6 +7,7 @@ package controller.user;
 
 import dal.BookDBContext;
 import dal.CategoryDBContext;
+import dal.PublisherDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modal.Book;
 import modal.Category;
+import modal.Publisher;
 
 /**
  *
@@ -27,7 +29,9 @@ public class ListAllBooksController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         CategoryDBContext categoryDB = new CategoryDBContext();
-        BookDBContext bookDB = new BookDBContext(); 
+        BookDBContext bookDB = new BookDBContext();
+        PublisherDBContext publisherDB = new PublisherDBContext(); 
+        ArrayList<Publisher> publishers = publisherDB.getPublisher();
         ArrayList<Category> categories = categoryDB.getAllCategories();
         // phân trang
         int pageSize = 10; 
@@ -36,6 +40,7 @@ public class ListAllBooksController extends HttpServlet {
             page = "1"; 
         }
         int pageIndex = Integer.parseInt(page);
+        if(pageIndex < 1) pageIndex = 1;
         ArrayList<Book> books = bookDB.getAllBooks(pageIndex, pageSize);
         int count = bookDB.count(); 
         int totalPage = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize) + 1;
@@ -43,6 +48,7 @@ public class ListAllBooksController extends HttpServlet {
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("pageIndex", pageIndex);
         request.setAttribute("categories", categories);
+        request.setAttribute("publishers", publishers);
         request.getRequestDispatcher("view/books.jsp").forward(request, response);
     }
 
