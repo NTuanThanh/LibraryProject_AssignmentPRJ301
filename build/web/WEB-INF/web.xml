@@ -28,6 +28,10 @@
         <servlet-name>DetailController</servlet-name>
         <servlet-class>controller.user.DetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>booksAdminController</servlet-name>
+        <servlet-class>controller.admin.booksAdminController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>DetailController</servlet-name>
         <url-pattern>/books/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>booksAdminController</servlet-name>
+        <url-pattern>/admin/books</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
