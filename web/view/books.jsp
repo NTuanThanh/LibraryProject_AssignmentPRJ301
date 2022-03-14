@@ -69,16 +69,16 @@
                                         <a class="nav-link" href="#">Hướng dẫn mượn sách</a>
                                     </li>      
                                 </ul>
-                                <div class="dropdown mr-auto">
+<!--                                <div class="dropdown mr-auto">
                                     <button type="button" class="my-size-category btn btn-success btn-block dropdown-toggle" data-toggle="dropdown">
                                         Danh Mục Sách
                                     </button>
                                     <div class="dropdown-menu btn-block">
                                         <c:forEach items="${requestScope.categories}" var ="c">
-                                          <a class="dropdown-item" href="#">${c.name}</a>      
+                                          <a class="dropdown-item" href="books?cid=${c.id}">${c.name}</a>      
                                         </c:forEach>
                                     </div>
-                                </div>            
+                                </div>            -->
                                 <form class="form-inline" action = "books" method="GET">
                                     <input class="form-control mr-sm-2" type="search" name = "bname"  placeholder="Sách cần tìm...">
                                     <button class="btn btn-warning" type="submit">Tìm Kiếm</button>
@@ -169,7 +169,7 @@
                         <!--Show books-->
                         <div class = "books-item">                   
                             <c:forEach items="${requestScope.books}" var = "b">
-                               <a href ="books/details?book-id=${b.id}" class = "book-item">
+                               <a href ="books/detail?bid=${b.id}" class = "book-item">
                                 <figure>
                                    <img src="images/books/${b.img}" alt="${b.name}"/>
                                 </figure>                           
@@ -196,7 +196,7 @@
                         <ul class="list-group list-group-flush">
                             <c:forEach items="${requestScope.categories}" var ="c">
                                  <li class="list-group-item">
-                                    <a href="#">${c.name}</a>
+                                     <a href="books?cid=${c.id}">${c.name}</a>
                                  </li>
                             </c:forEach>
                         </ul>

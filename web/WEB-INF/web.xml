@@ -25,8 +25,8 @@
         <servlet-class>controller.admin.InsertBook</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>test</servlet-name>
-        <servlet-class>controller.user.test</servlet-class>
+        <servlet-name>DetailController</servlet-name>
+        <servlet-class>controller.user.DetailController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -53,8 +53,8 @@
         <url-pattern>/admin/book/insert</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>test</servlet-name>
-        <url-pattern>/test</url-pattern>
+        <servlet-name>DetailController</servlet-name>
+        <url-pattern>/books/detail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

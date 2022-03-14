@@ -75,7 +75,7 @@
                                     </button>
                                     <div class="dropdown-menu btn-block">
                                         <c:forEach items="${requestScope.categories}" var ="c">
-                                          <a class="dropdown-item" href="#">${c.name}</a>      
+                                          <a class="dropdown-item" href="books?cid=${c.id}">${c.name}</a>      
                                         </c:forEach>
                                     </div>
                                 </div>            
@@ -108,7 +108,7 @@
                 </h2>
                 <div class = "books-item">                   
                     <c:forEach items="${requestScope.top10books}" var = "b">
-                       <a href ="#" class = "book-item">
+                       <a href ="books/detail?bid=${b.id}" class = "book-item">
                         <figure>
                            <img src="images/books/${b.img}" alt="${b.name}"/>
                         </figure>                           

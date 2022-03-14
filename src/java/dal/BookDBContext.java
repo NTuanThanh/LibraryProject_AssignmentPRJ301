@@ -412,4 +412,44 @@ public class BookDBContext extends DBContext{
         }
         return publicationYears;         
     }
+    public Book getBook(int bid){
+        try {
+            String sql = "select b.book_id, b.[name] as bname, b.publication_year, b.number_pages, b.img, b.[Description], \n" +
+                    "       b.author, b.publisher_id, p.[name] as pname, b.language_id, l.name_language as lname, b.category_id, c.[name] as cname , b.[location]   \n" +
+                    "       from Book as b INNER JOIN Categories as c on b.category_id = c.category_id\n" +
+                    "	                   INNER JOIN Publisher as p on b.publisher_id = p.publisher_id\n" +
+                    "			   INNER JOIN [Language] as l on b.language_id = l.language_id\n" +
+                    "	    where b.book_id = ?"; 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, bid);
+            ResultSet rs = stm.executeQuery(); 
+            while(rs.next()){
+                Book book = new Book(); 
+                book.setId(rs.getInt("book_id"));
+                book.setName(rs.getString("bname"));
+                book.setPublicationYear(rs.getInt("publication_year"));
+                book.setNumberPages(rs.getInt("number_pages"));
+                book.setImg(rs.getString("img"));
+                book.setDescription(rs.getString("Description"));
+                book.setAuthor(rs.getString("author"));
+                Publisher p = new Publisher(); 
+                p.setId(rs.getInt("publisher_id"));
+                p.setName(rs.getString("pname"));
+                book.setPublisher(p);
+                Category c = new Category();
+                c.setId(rs.getInt("category_id"));
+                c.setName(rs.getString("cname"));
+                book.setCategory(c);
+                Language l = new Language(); 
+                l.setId(rs.getInt("language_id"));
+                l.setName(rs.getString("lname"));
+                book.setLanguage(l);
+                book.setLocation(rs.getString("location")); 
+                return book;
+           }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
