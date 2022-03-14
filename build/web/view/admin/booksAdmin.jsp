@@ -76,7 +76,7 @@
           <!-- this is header of book management -->
             <div class = "header-adminBook">
                 <h2>Quản Lý Sách</h2>
-                <button class="btn btn-warning" type="submit">+ Thêm Sách</button>
+                <button class="btn btn-warning" onclick = "insertBook()" type="submit">+ Thêm Sách</button>
             </div>
           <!-- advanced search -->
             <form action = "books" method="GET">
@@ -118,8 +118,8 @@
                         </select>
                     </div>
                     <div class = "advanced-search-item second">
-                        <label for="author" class="mr-sm-2">Tên Sách</label>
-                        <input value="${requestScope.bname}" type="text" class="form-control" name ="bname"  id="author" placeholder="Nhập vào tên sách" >
+                        <label for="bookname" class="mr-sm-2">Tên Sách</label>
+                        <input value="${requestScope.bname}" type="text" class="form-control" name ="bname"  id="bookname" placeholder="Nhập vào tên sách" >
                     </div>
                     <div class = "advanced-search-item second">
                         <label for="author" class="mr-sm-2">Tên Tác Giả</label>
@@ -172,6 +172,9 @@
             // có sách mới phân trang 
             if(${requestScope.books.size() > 0}){
                pagger_Books("paggerBottom",2,${requestScope.totalPage},${requestScope.pageIndex},'${requestScope.url}'); 
+            }
+            function insertBook(){
+                window.location.href = "books/insert"; 
             }
         </script>
     </body>

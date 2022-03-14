@@ -54,7 +54,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InsertBook</servlet-name>
-        <url-pattern>/admin/book/insert</url-pattern>
+        <url-pattern>/admin/books/insert</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DetailController</servlet-name>

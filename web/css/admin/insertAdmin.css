@@ -1,0 +1,34 @@
+.insert-book{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 50px;
+    justify-content: space-around;
+}
+.insert-book label{
+    font-weight: bold;
+    color: #333;
+}
+.insert-book .insert-book-item{
+    flex-basis: calc(50% - 12px);
+}
+.insert-book-item-descrip{
+    flex-basis: 100%;
+}
+.insert-book-submit{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+@media (max-width: 900px){
+    .insert-book{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+@media (max-width: 600px){
+    .insert-book .insert-book-item{
+        flex-basis: 100%;
+    }
+}

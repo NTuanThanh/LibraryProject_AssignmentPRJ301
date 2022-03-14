@@ -48,7 +48,7 @@ public class InsertBook extends HttpServlet {
         request.setAttribute("categories", categories);
         request.setAttribute("publishers", publishers);
         request.setAttribute("languages", Languages);
-        request.getRequestDispatcher("../../view/admin/insertBook.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/admin/test.jsp").forward(request, response);
     }
 
     @Override

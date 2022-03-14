@@ -63,7 +63,6 @@ public final class insertBook_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <title>JSP Page</title>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
-      out.write("        <img src=\"../../images/books/a.jpg\" alt=\"\"/>\n");
       out.write("        <form action = \"insert\" method=\"POST\" enctype=\"multipart/form-data\">\n");
       out.write("        Tên Sách : <input type=\"text\" name = \"bname\"/> <br>\n");
       out.write("        Nhà Xuất Bản : \n");
@@ -95,6 +94,9 @@ public final class insertBook_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        Ảnh : <input type =\"file\" name = \"img\"/><br>\n");
       out.write("        <input type=\"submit\" value = \"Thêm\"> \n");
       out.write("        <input type=\"reset\" value = \"Reset\">\n");
+      out.write("        ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.message_ExistBook}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\n");
       out.write("        </form>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
