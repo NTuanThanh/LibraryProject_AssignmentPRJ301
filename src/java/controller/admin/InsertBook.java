@@ -39,6 +39,8 @@ public class InsertBook extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         CategoryDBContext categoryDB = new CategoryDBContext(); 
         PublisherDBContext publisherDB = new PublisherDBContext();
         LanguageDBContext languageDB = new LanguageDBContext(); 

@@ -63,6 +63,48 @@ public class BookDBContext extends DBContext{
             Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }      
     }
+    public void update(Book b){
+        try {
+            String sql = "UPDATE [Book]\n" +
+                    "   SET [name] = ?\n" +
+                    "      ,[publication_year] = ?\n" +
+                    "      ,[number_pages] = ?\n" +
+                    "      ,[img] = ?\n" +
+                    "      ,[Description] = ?\n" +
+                    "      ,[author] = ?\n" +
+                    "      ,[publisher_id] = ?\n" +
+                    "      ,[language_id] = ?\n" +
+                    "      ,[category_id] = ?\n" +
+                    "      ,[location] = ?\n" +
+                    " WHERE book_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql); 
+            stm.setString(1, b.getName());
+            stm.setInt(2, b.getPublicationYear());
+            stm.setInt(3,b.getNumberPages());
+            stm.setString(4, b.getImg());
+            stm.setString(5,b.getDescription());
+            stm.setString(6, b.getAuthor());
+            stm.setInt(7,b.getPublisher().getId());
+            stm.setInt(8,b.getLanguage().getId()); 
+            stm.setInt(9, b.getCategory().getId());
+            stm.setString(10, b.getLocation());
+            stm.setInt(11, b.getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void delete(int bid){
+        try {
+            String sql = "DELETE FROM [Book]\n" +
+                    "WHERE book_id = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, bid);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
     public boolean checkExistBook(String bname, int publicationYear, String author, int cid, int pid, int lid){
         try {
             String sql = "select * from Book where [name] like ? and publication_year = ? and author like ?\n" +

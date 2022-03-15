@@ -22,7 +22,7 @@
     </head>
     <body>
         <!--navbar header-->
-        <nav class="navbar color-brand navbar-expand-lg navbar-light bg-light">
+        <nav class="position-edit navbar color-brand navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">Quản Lý Thư Viện</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
                         <a class="nav-link" href="../home"><i style="margin-right: 5px" class="fa fa-home"></i>Về Trang Chủ User</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#"><i style="margin-right: 5px" class="fa fa-book"></i>Quản Lý Sách</a>
+                        <a class="nav-link" href="books"><i style="margin-right: 5px" class="fa fa-book"></i>Quản Lý Sách</a>
                     </li>
                     <li class="nav-item left-item">
                         <a class="nav-link" href="#">Danh Mục Sách</a>
@@ -154,8 +154,29 @@
                         <td>${b.category.name}</th>
                         <td>${b.publisher.name}</th>
                         <td>${b.publicationYear}</th>
-                        <td><button type="button" class="btn btn-info">Sửa</button></th>
-                        <td><button type="button" class="btn btn-info">Xóa</button></th>
+                        <td><button type="button" onclick="updateBook(${b.id})" class="btn btn-info">Sửa</button></th>
+                        <td>
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+                                Xóa
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc muốn xóa quyển sách này ?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                            <button type="button" onclick = "deleteBook(${b.id})" class="btn btn-primary">Xóa</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                     </c:forEach>
                 </tbody>
@@ -175,6 +196,12 @@
             }
             function insertBook(){
                 window.location.href = "books/insert"; 
+            }
+            function updateBook(id){
+                window.location.href = "books/update?bid="+id;
+            }
+            function deleteBook(id){
+                window.location.href = "books/delete?bid=" + id;  
             }
         </script>
     </body>

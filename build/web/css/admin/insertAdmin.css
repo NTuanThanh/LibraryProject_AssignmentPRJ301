@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     margin-left: 200px;
     margin-right: 200px;
-    margin-top: 50px;
+    margin-top: 20px;
     justify-content: space-around;
 }
 .insert-book label{
@@ -19,6 +19,19 @@
 .insert-book-submit{
     display: flex;
     justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+label.error{
+   color : red !important;
+   font-size: 14px;
+   font-weight: 500;
+}
+.preview-image img{
+    box-shadow: -10px -10px 5px #888;
+    border: 1px solid black;
+    width: 300px;
+    height: 430px;
     margin-top: 10px;
 }
 @media (max-width: 900px){

@@ -24,7 +24,7 @@
     </head>
     <body>
         <!--navbar header-->
-        <nav class="navbar color-brand navbar-expand-lg navbar-light bg-light">
+        <nav class="position-edit navbar color-brand navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">Quản Lý Thư Viện</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,10 +33,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto flex-column vertical-nav">
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="../home"><i style="margin-right: 5px" class="fa fa-home"></i>Về Trang Chủ User</a>
+                        <a class="nav-link" href="../../home"><i style="margin-right: 5px" class="fa fa-home"></i>Về Trang Chủ User</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#"><i style="margin-right: 5px" class="fa fa-book"></i>Quản Lý Sách</a>
+                        <a class="nav-link" href="../books"><i style="margin-right: 5px" class="fa fa-book"></i>Quản Lý Sách</a>
                     </li>
                     <li class="nav-item left-item">
                         <a class="nav-link" href="#">Danh Mục Sách</a>
@@ -79,7 +79,7 @@
             <div class = "header-adminBook">
                 <h2>Thêm Sách</h2>
             </div>
-            <form id ="insertBook" action = "insert" method="POST" enctype="multipart/form-data">
+            <form id ="validate-form-book" action = "insert" method="POST" enctype="multipart/form-data">
                 <div class = "insert-book">
                     <div class = "insert-book-item form-group">
                         <label for="bookname" class="mr-sm-2">Tên Sách</label>
@@ -98,18 +98,18 @@
                         </select>
                     </div>
                     <div class = "insert-book-item form-group">
-                        <label for="language">Ngôn Ngữ</label>
-                        <select class="form-control" id="language" name = "language_id">
-                            <c:forEach items="${requestScope.languages}" var = "l">
-                                <option value="${l.id}">${l.name}</option>
-                            </c:forEach>                                        
-                        </select>
-                    </div>
-                    <div class = "insert-book-item form-group">
                         <label for="publisher">Nhà Xuất Bản</label>
                         <select class="form-control" id="publisher" name = "publisher_id">
                             <c:forEach items = "${requestScope.publishers}" var = "p">
                                 <option value = "${p.id}">${p.name}</option>
+                            </c:forEach>                                        
+                        </select>
+                    </div>
+                    <div class = "insert-book-item form-group">
+                        <label for="language">Ngôn Ngữ</label>
+                        <select class="form-control" id="language" name = "language_id">
+                            <c:forEach items="${requestScope.languages}" var = "l">
+                                <option value="${l.id}">${l.name}</option>
                             </c:forEach>                                        
                         </select>
                     </div>
@@ -132,11 +132,14 @@
                     <form>
                     <div class="form-group insert-book-item">
                       <label for="exampleFormControlFile1">Ảnh</label>
-                      <input type="file" class="form-control-file" id="exampleFormControlFile1" name = "img">
-                    </div>   
-                </div>    
+                      <input type="file" class="form-control-file" onchange="getImgPreview(event)" id="exampleFormControlFile1" name = "img">
+                    </div> 
+                    <div class = "preview-image" id="preview">
+                    
+                    </div> 
+                </div>               
                 <div class = "insert-book-submit">
-                    <button id = "btn-Save" class="btn btn-danger" type="submit">Thêm Sách</button>
+                    <button id = "btn-Save" class="btn btn-success" type="submit">Thêm Sách</button>
                 </div>
                 <div>
                     ${requestScope.message_ExistBook}
@@ -145,6 +148,14 @@
         </div>
         <script>
            validationForm();
+           function getImgPreview(event){
+               var image = URL.createObjectURL(event.target.files[0]);
+               var imagediv = document.getElementById("preview"); 
+               var newimg = document.createElement("img"); 
+               imagediv.innerHTML=''; 
+               newimg.src = image; 
+               imagediv.appendChild(newimg);
+           }
         </script>
     </body>
 </html>

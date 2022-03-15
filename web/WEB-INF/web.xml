@@ -32,6 +32,14 @@
         <servlet-name>booksAdminController</servlet-name>
         <servlet-class>controller.admin.booksAdminController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>updateBook</servlet-name>
+        <servlet-class>controller.admin.updateBook</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteBook</servlet-name>
+        <servlet-class>controller.admin.deleteBook</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -63,6 +71,14 @@
     <servlet-mapping>
         <servlet-name>booksAdminController</servlet-name>
         <url-pattern>/admin/books</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateBook</servlet-name>
+        <url-pattern>/admin/books/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteBook</servlet-name>
+        <url-pattern>/admin/books/delete</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

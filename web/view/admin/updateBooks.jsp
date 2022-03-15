@@ -1,8 +1,9 @@
 <%-- 
-    Document   : test
-    Created on : Mar 15, 2022, 1:11:56 AM
+    Document   : updateBooks
+    Created on : Mar 16, 2022, 12:28:01 AM
     Author     : pv
 --%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
@@ -77,23 +78,25 @@
         <div class = "main-body">
           <!-- this is header of book management -->
             <div class = "header-adminBook">
-                <h2>Thêm Sách</h2>
+                <h2>Chỉnh Sửa Sách</h2>
             </div>
-            <form id ="validate-form-book" action = "insert" method="POST" enctype="multipart/form-data">
+            <form id ="validate-form-update" action = "update" method="POST" enctype="multipart/form-data">
                 <div class = "insert-book">
                     <div class = "insert-book-item form-group">
                         <label for="bookname" class="mr-sm-2">Tên Sách</label>
-                        <input type="text" class="form-control" name ="bname" placeholder="Nhập vào tên sách" >
+                        <!--Gửi id lên nhưng hidden-->
+                        <input name = "bid" type="text" value="${requestScope.book.id}" hidden="hidden">
+                        <input value = "${requestScope.book.name}" type="text" class="form-control" name ="bname" placeholder="Nhập vào tên sách" >
                     </div>
                     <div class = "insert-book-item form-group">
                         <label for="author" class="mr-sm-2">Tên Tác Giả</label>
-                        <input type="text" class="form-control" name ="author" id="author" placeholder="Nhập vào tên tác giả" >
+                        <input value = "${requestScope.book.author}" type="text" class="form-control" name ="author" id="author" placeholder="Nhập vào tên tác giả" >
                     </div>
                     <div class = "insert-book-item form-group">
                         <label for="category">Thể Loại</label>
                         <select class="form-control" id="category" name = "category_id">
                             <c:forEach items = "${requestScope.categories}" var = "c">
-                                <option value = "${c.id}">${c.name}</option>
+                                <option ${requestScope.book.category.id == c.id?"selected = selected":""} value = "${c.id}">${c.name}</option>
                             </c:forEach>                                        
                         </select>
                     </div>
@@ -101,7 +104,7 @@
                         <label for="publisher">Nhà Xuất Bản</label>
                         <select class="form-control" id="publisher" name = "publisher_id">
                             <c:forEach items = "${requestScope.publishers}" var = "p">
-                                <option value = "${p.id}">${p.name}</option>
+                                <option ${requestScope.book.publisher.id == p.id?"selected = selected":""} value = "${p.id}">${p.name}</option>
                             </c:forEach>                                        
                         </select>
                     </div>
@@ -109,45 +112,43 @@
                         <label for="language">Ngôn Ngữ</label>
                         <select class="form-control" id="language" name = "language_id">
                             <c:forEach items="${requestScope.languages}" var = "l">
-                                <option value="${l.id}">${l.name}</option>
+                                <option ${requestScope.book.language.id == l.id?"selected = selected":""} value="${l.id}">${l.name}</option>
                             </c:forEach>                                        
                         </select>
                     </div>
                     <div class = "insert-book-item form-group">
                         <label for="publicyear" class="mr-sm-2">Năm Xuất Bản</label>
-                        <input type="text" class="form-control" name ="publication_year"  id="publicyear" placeholder="Nhập vào năm xuất bản" >
+                        <input value = "${requestScope.book.publicationYear}" type="text" class="form-control" name ="publication_year"  id="publicyear" placeholder="Nhập vào năm xuất bản" >
                     </div>
                     <div class = "insert-book-item form-group">
                         <label for="numberpage" class="mr-sm-2">Số Trang</label>
-                        <input type="text" class="form-control" name ="numberpage"  id="numberpage" placeholder="Nhập vào số trang" >
+                        <input value = "${requestScope.book.numberPages}" type="text" class="form-control" name ="numberpage"  id="numberpage" placeholder="Nhập vào số trang" >
                     </div>
                     <div class = "insert-book-item form-group">
                         <label for="location" class="mr-sm-2">Vị Trị Đặt Sách Ở Thư Viện</label>
-                        <input type="text" class="form-control" name ="location" id="location" placeholder="Nhập vào vị trị" >
+                        <input value = "${requestScope.book.location}" type="text" class="form-control" name ="location" id="location" placeholder="Nhập vào vị trị" >
                     </div>
                     <div class="insert-book-item form-group">
                         <label for="exampleFormControlTextarea1">Mô Tả</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name = "descrip"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name = "descrip">${requestScope.book.description}</textarea>
                     </div>
                     <form>
                     <div class="form-group insert-book-item">
                       <label for="exampleFormControlFile1">Ảnh</label>
-                      <input type="file" class="form-control-file" onchange="getImgPreview(event)" id="exampleFormControlFile1" name = "img">
-                    </div> 
-                    <div class = "preview-image" id="preview">
-                    
-                    </div> 
-                </div>               
-                <div class = "insert-book-submit">
-                    <button id = "btn-Save" class="btn btn-success" type="submit">Thêm Sách</button>
+                      <input value="${requestScope.book.img}" type="text" hidden="hidden" name = "old_img"/>
+                      <input type="file" onchange="getImgPreview(event)" class="form-control-file" id="exampleFormControlFile1" name = "img">
+                    </div>
+                    <div class = "preview-image" id = "preview">
+                       <img src="../../images/books/${requestScope.book.img}" />
+                    </div>
                 </div>
-                <div>
-                    ${requestScope.message_ExistBook}
+                <div class = "insert-book-submit">
+                    <button id = "btn-Save" class="btn btn-success" type="submit">Save</button>
                 </div>
             </form>
         </div>
         <script>
-           validationForm();
+           validateUpdateBook();
            function getImgPreview(event){
                var image = URL.createObjectURL(event.target.files[0]);
                var imagediv = document.getElementById("preview"); 
@@ -159,3 +160,4 @@
         </script>
     </body>
 </html>
+
