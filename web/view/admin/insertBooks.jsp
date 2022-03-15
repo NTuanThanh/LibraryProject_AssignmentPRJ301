@@ -13,12 +13,13 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+        <script src ="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <link href="../../css/admin/booksAdmin.css" rel="stylesheet" type="text/css"/>
         <script src="../../js/pagination/pagger.js" type="text/javascript"></script>
         <link href="../../css/admin/insertAdmin.css" rel="stylesheet" type="text/css"/>
-        <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.5/dist/bootstrap-validate.js" ></script>
+        <script src="../../js/validation/validateForm.js" type="text/javascript"></script>
         <title>JSP Page</title>
     </head>
     <body>
@@ -78,11 +79,11 @@
             <div class = "header-adminBook">
                 <h2>Thêm Sách</h2>
             </div>
-            <form action = "insert" method="POST" enctype="multipart/form-data">
+            <form id ="insertBook" action = "insert" method="POST" enctype="multipart/form-data">
                 <div class = "insert-book">
                     <div class = "insert-book-item form-group">
                         <label for="bookname" class="mr-sm-2">Tên Sách</label>
-                        <input type="text" class="form-control" name ="bname"  id="bookname" placeholder="Nhập vào tên sách" >
+                        <input type="text" class="form-control" name ="bname" placeholder="Nhập vào tên sách" >
                     </div>
                     <div class = "insert-book-item form-group">
                         <label for="author" class="mr-sm-2">Tên Tác Giả</label>
@@ -90,7 +91,7 @@
                     </div>
                     <div class = "insert-book-item form-group">
                         <label for="category">Thể Loại</label>
-                        <select class="form-control" id="category" name = "cid">
+                        <select class="form-control" id="category" name = "category_id">
                             <c:forEach items = "${requestScope.categories}" var = "c">
                                 <option value = "${c.id}">${c.name}</option>
                             </c:forEach>                                        
@@ -106,7 +107,7 @@
                     </div>
                     <div class = "insert-book-item form-group">
                         <label for="publisher">Nhà Xuất Bản</label>
-                        <select class="form-control" id="publisher" name = "pid">
+                        <select class="form-control" id="publisher" name = "publisher_id">
                             <c:forEach items = "${requestScope.publishers}" var = "p">
                                 <option value = "${p.id}">${p.name}</option>
                             </c:forEach>                                        
@@ -114,11 +115,11 @@
                     </div>
                     <div class = "insert-book-item form-group">
                         <label for="publicyear" class="mr-sm-2">Năm Xuất Bản</label>
-                        <input id = "myint" type="text" class="form-control" name ="publication_year"  id="publicyear" placeholder="Nhập vào năm xuất bản" >
+                        <input type="text" class="form-control" name ="publication_year"  id="publicyear" placeholder="Nhập vào năm xuất bản" >
                     </div>
                     <div class = "insert-book-item form-group">
                         <label for="numberpage" class="mr-sm-2">Số Trang</label>
-                        <input id = "mynumber" type="text" class="form-control" name ="numberpage"  id="numberpage" placeholder="Nhập vào số trang" >
+                        <input type="text" class="form-control" name ="numberpage"  id="numberpage" placeholder="Nhập vào số trang" >
                     </div>
                     <div class = "insert-book-item form-group">
                         <label for="location" class="mr-sm-2">Vị Trị Đặt Sách Ở Thư Viện</label>
@@ -135,13 +136,15 @@
                     </div>   
                 </div>    
                 <div class = "insert-book-submit">
-                    <button class="btn btn-danger" type="submit">Thêm Sách</button>
+                    <button id = "btn-Save" class="btn btn-danger" type="submit">Thêm Sách</button>
+                </div>
+                <div>
+                    ${requestScope.message_ExistBook}
                 </div>
             </form>
         </div>
         <script>
-            bootstrapValidate('#myint','integer:Nhập Vào Năm Xuất Bản - Không Được Nhập Chữ Và Kí Tự Đặc Biệt');
-            bootstrapValidate('#mynumber','numeric:Nhập Vào Số Trang - Không Được Nhập Chữ Và Kí Tự Đặc Biệt');
-        </script> 
+           validationForm();
+        </script>
     </body>
 </html>

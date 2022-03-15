@@ -48,7 +48,7 @@ public class InsertBook extends HttpServlet {
         request.setAttribute("categories", categories);
         request.setAttribute("publishers", publishers);
         request.setAttribute("languages", Languages);
-        request.getRequestDispatcher("../../view/admin/test.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/admin/insertBooks.jsp").forward(request, response);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class InsertBook extends HttpServlet {
             request.setAttribute("publishers", publishers);
             request.setAttribute("languages", Languages);
             request.setAttribute("message_ExistBook", "Sách bạn vừa thêm đã tồn tại");
-            request.getRequestDispatcher("../../view/admin/insertBook.jsp").forward(request, response);
+            request.getRequestDispatcher("../../view/admin/insertBooks.jsp").forward(request, response);
         }else{
             // xử lý ảnh 
             Part part = request.getPart("img");
@@ -105,6 +105,7 @@ public class InsertBook extends HttpServlet {
             book.setImg(filename);     
             // insert 
             bookdb.insert(book);
+            response.sendRedirect("../books");
         }      
     }
 }
