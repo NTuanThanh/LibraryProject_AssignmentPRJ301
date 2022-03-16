@@ -95,4 +95,51 @@ public class CategoryDBContext extends DBContext{
         }
         return false;       
     }
+    public void delete(int id){
+        try {
+            String sql = "DELETE FROM  [Categories]\n" +
+                    "      WHERE category_id = ?"; 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     public ArrayList<Category> getAllCategories(int pageIndex, int pageSize){
+        ArrayList<Category> categories = new ArrayList<>(); 
+        String sql = "select * from \n" +
+                    "( select ROW_NUMBER() OVER (order by category_id asc) as row_index, category_id, [name] from Categories ) as tbl\n" +
+                    "where row_index >= (? - 1) * ? + 1 and row_index <= ? * ?";
+        try { 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageIndex);
+            stm.setInt(2, pageSize);
+            stm.setInt(3, pageIndex); 
+            stm.setInt(4, pageSize);
+            ResultSet rs = stm.executeQuery(); 
+            while(rs.next()){
+                Category c = new Category(); 
+                c.setId(rs.getInt("category_id"));
+                c.setName(rs.getString("name"));
+                categories.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return categories;
+    }
+     public int count(){
+        try {
+            String sql = "Select Count(*) as Total from Categories";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs =  stm.executeQuery();
+            while(rs.next()){
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
 }

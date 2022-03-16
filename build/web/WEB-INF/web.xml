@@ -40,6 +40,10 @@
         <servlet-name>deleteBook</servlet-name>
         <servlet-class>controller.admin.deleteBook</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>deleteCategory</servlet-name>
+        <servlet-class>controller.admin.deleteCategory</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>deleteBook</servlet-name>
         <url-pattern>/admin/books/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteCategory</servlet-name>
+        <url-pattern>/admin/category/delete</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -37,7 +37,7 @@
                         <a class="nav-link" href="books"><i style="margin-right: 5px" class="fa fa-book"></i>Quản Lý Sách</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Danh Mục Sách</a>
+                        <a class="nav-link" href="category/insert">Danh Mục Sách</a>
                     </li>
                     </li>
                     <li class="nav-item left-item">
@@ -149,33 +149,14 @@
                     <c:forEach items="${requestScope.books}" var="b"> 
                     <tr>
                         <th scope="row">${b.id}</th>
-                        <td>${b.name}</th>
-                        <td>${b.author}</th>
-                        <td>${b.category.name}</th>
-                        <td>${b.publisher.name}</th>
-                        <td>${b.publicationYear}</th>
-                        <td><button type="button" onclick="updateBook(${b.id})" class="btn btn-info">Sửa</button></th>
+                        <td>${b.name}</td>
+                        <td>${b.author}</td>
+                        <td>${b.category.name}</td>
+                        <td>${b.publisher.name}</td>
+                        <td>${b.publicationYear}</td>
+                        <td><button type="button" onclick="updateBook(${b.id})" class="btn btn-info">Sửa</button></td>
                         <td>
-                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
-                                Xóa
-                            </button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc muốn xóa quyển sách này ?</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                            <button type="button" onclick = "deleteBook(${b.id})" class="btn btn-primary">Xóa</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <button type="button" onclick="deleteBook(${b.id})" class="btn btn-info">Xóa</button>
                         </td>
                     </tr>
                     </c:forEach>
@@ -201,7 +182,10 @@
                 window.location.href = "books/update?bid="+id;
             }
             function deleteBook(id){
-                window.location.href = "books/delete?bid=" + id;  
+                var c = confirm("Bạn có chắc chắn muốn xóa quyển sách này ?"); 
+                if(c){
+                    window.location.href = "books/delete?bid=" + id;   
+                }  
             }
         </script>
     </body>
