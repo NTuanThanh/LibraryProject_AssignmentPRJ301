@@ -5,6 +5,7 @@
  */
 package controller.admin;
 
+import controller.authorization.BaseAuthController;
 import dal.CategoryDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,10 +20,10 @@ import modal.Category;
  *
  * @author pv
  */
-public class InsertCategory extends HttpServlet {
+public class InsertCategory extends BaseAuthController {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -36,7 +37,6 @@ public class InsertCategory extends HttpServlet {
         ArrayList<Category> categories = categoryDB.getAllCategories(pageIndex, pageSize);
         int count = categoryDB.count();
         int totalPage = (count % pageSize == 0) ? (count / pageSize) : (count / pageSize) + 1;
-        response.getWriter().print(count);
         String url = "insert?";
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("pageIndex", pageIndex);
@@ -46,7 +46,7 @@ public class InsertCategory extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         CategoryDBContext CategoryDB = new CategoryDBContext();
@@ -57,8 +57,14 @@ public class InsertCategory extends HttpServlet {
         if(catoryName != null || catoryName.trim().length() > 0){
             // nếu có thì chuyển lại trang insert và thông báo message là đã có
             if (checkExistCname == true) {
-                ArrayList<Category> categories = CategoryDB.getAllCategories();
+                ArrayList<Category> categories = CategoryDB.getAllCategories(1, 10);
+                int count = CategoryDB.count();
+                int totalPage = (count % 10 == 0) ? (count / 10) : (count / 10) + 1;
+                String url = "insert?";
+                request.setAttribute("totalPage", totalPage);
+                request.setAttribute("pageIndex", 1);
                 request.setAttribute("categories", categories);
+                request.setAttribute("url",url);
                 request.setAttribute("message_ExistCategoryName", "Danh mục sách này đã tồn tại");
                 request.getRequestDispatcher("../../view/admin/insertCategory.jsp").forward(request, response);
             }else{

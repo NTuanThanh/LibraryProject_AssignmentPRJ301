@@ -5,6 +5,7 @@
  */
 package controller.admin;
 
+import controller.authorization.BaseAuthController;
 import dal.BookDBContext;
 import dal.CategoryDBContext;
 import dal.LanguageDBContext;
@@ -34,10 +35,10 @@ import modal.Publisher;
         maxRequestSize      = 1024 * 1024 * 70, //70 MB
         location = "C:\\Users\\pv\\Desktop\\Assignment PRJ301\\Assignment_Library\\web\\images\\books"// 15 MB
 )
-public class updateBook extends HttpServlet {
+public class updateBook extends BaseAuthController {
    
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BookDBContext bookDB = new BookDBContext();
         CategoryDBContext categoryDB = new CategoryDBContext(); 
@@ -60,7 +61,7 @@ public class updateBook extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");

@@ -6,7 +6,7 @@
 package controller.admin;
 
 import controller.authorization.BaseAuthController;
-import dal.BookDBContext;
+import dal.LanguageDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,17 +18,21 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pv
  */
-public class deleteBook extends BaseAuthController {
+public class deleteLanguage extends BaseAuthController {
+
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int pid = Integer.parseInt(request.getParameter("bid")); 
-        BookDBContext bookdb = new BookDBContext(); 
-        bookdb.delete(pid);
-        response.sendRedirect("../books");
+        String raw_lid = request.getParameter("lid"); 
+        if(raw_lid == null || raw_lid.length() == 0){
+              raw_lid = "-1"; 
+        }
+        int lid = Integer.parseInt(raw_lid); 
+        LanguageDBContext languageDB = new LanguageDBContext(); 
+        languageDB.delete(lid);
+        response.sendRedirect("insert");
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

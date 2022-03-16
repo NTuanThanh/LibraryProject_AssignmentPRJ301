@@ -40,14 +40,14 @@
                         <a class="nav-link" href="../books"><i style="margin-right: 5px" class="fa fa-book"></i>Quản Lý Sách</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Danh Mục Sách</a>
+                        <a class="nav-link" href="../category/insert">Danh Mục Sách</a>
                     </li>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Nhà Xuất Bản</a>
+                        <a class="nav-link" href="../category/insert">Nhà Xuất Bản</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Lượt mượn ngày hôm nay</a>
+                        <a class="nav-link" href="../category/insert">Ngôn Ngữ</a>
                     </li>
                     <li class="nav-item left-item">
                         <a class="nav-link" href="#">Quản lý mượn trả</a>

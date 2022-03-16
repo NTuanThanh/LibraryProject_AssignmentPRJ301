@@ -5,6 +5,7 @@
  */
 package controller.admin;
 
+import controller.authorization.BaseAuthController;
 import dal.BookDBContext;
 import dal.CategoryDBContext;
 import dal.PublisherDBContext;
@@ -23,9 +24,9 @@ import modal.Publisher;
  *
  * @author pv
  */
-public class booksAdminController extends HttpServlet {
+public class booksAdminController extends BaseAuthController {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -113,7 +114,7 @@ public class booksAdminController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

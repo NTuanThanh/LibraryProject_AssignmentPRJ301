@@ -41,10 +41,10 @@
                     </li>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Nhà Xuất Bản</a>
+                        <a class="nav-link" href=publisher/insert>Nhà Xuất Bản</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Lượt mượn ngày hôm nay</a>
+                        <a class="nav-link" href="language/insert">Ngôn Ngữ</a>
                     </li>
                     <li class="nav-item left-item">
                         <a class="nav-link" href="#">Quản lý mượn trả</a>

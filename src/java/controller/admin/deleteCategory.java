@@ -5,6 +5,7 @@
  */
 package controller.admin;
 
+import controller.authorization.BaseAuthController;
 import dal.CategoryDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,16 +18,16 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pv
  */
-public class deleteCategory extends HttpServlet {
+public class deleteCategory extends BaseAuthController {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String raw_pid = request.getParameter("pid"); 
-        if(raw_pid == null || raw_pid.length() == 0){
-              raw_pid = "-1"; 
+        String raw_cid = request.getParameter("cid"); 
+        if(raw_cid == null || raw_cid.length() == 0){
+              raw_cid = "-1"; 
         }
-        int pid = Integer.parseInt(raw_pid); 
+        int pid = Integer.parseInt(raw_cid); 
         CategoryDBContext categoryDB = new CategoryDBContext(); 
         categoryDB.delete(pid);
         response.sendRedirect("insert");
@@ -42,7 +43,7 @@ public class deleteCategory extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -56,7 +57,7 @@ public class deleteCategory extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

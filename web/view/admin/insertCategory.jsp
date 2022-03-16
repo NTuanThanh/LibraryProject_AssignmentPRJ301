@@ -42,10 +42,10 @@
                     </li>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Nhà Xuất Bản</a>
+                        <a class="nav-link" href="../publisher/insert">Nhà Xuất Bản</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Lượt mượn ngày hôm nay</a>
+                        <a class="nav-link" href="../language/insert">Ngôn Ngữ</a>
                     </li>
                     <li class="nav-item left-item">
                         <a class="nav-link" href="#">Quản lý mượn trả</a>
@@ -85,7 +85,7 @@
                         <input type="text" class="form-control" name ="categoryName" placeholder="Nhập vào tên danh mục mà bạn muốn thêm" >
                     </div>
                     <div class = "insert-book-other-button">
-                        <button id = "btn-Save" class="btn btn-success" type="submit">Thêm Sách</button>
+                        <button id = "btn-Save" class="btn btn-success" type="submit">Thêm</button>
                         <span class = "message-error-book">${requestScope.message_ExistCategoryName}</span>
                     </div>
                 </div>             
@@ -96,7 +96,7 @@
                 <thead>
                     <tr class = "bg-warning">
                         <th scope="col">Mã</th>
-                        <th scope="col">Tên Sách</th>
+                        <th scope="col">Tên Danh Mục</th>
                         <th scope="col">Xóa</th>
                     </tr>
                 </thead>
@@ -124,7 +124,7 @@
             function deleteCategory(cid){
                 var c = confirm("Bạn có chắc muốn xóa danh mục này không ?");
                 if(c){
-                   window.location.href = "delete?pid=" + cid;
+                   window.location.href = "delete?cid=" + cid;
                 } 
             }
              // có sách mới phân trang 

@@ -76,5 +76,53 @@ public class LanguageDBContext extends DBContext{
             Logger.getLogger(LanguageDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return languages; 
-    }  
+    }
+    public ArrayList<Language> getLanguages(int pageIndex, int pageSize){
+        ArrayList<Language> languages = new ArrayList<>(); 
+        try {
+            String sql = "select * from \n" +
+                        "( select ROW_NUMBER() OVER (order by language_id asc) as row_index,  language_id, name_language from Language ) "
+                      + "as tbl \n" +
+                        "where row_index >= (? - 1) * ? + 1 and row_index <= ? * ?"; 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageIndex);
+            stm.setInt(2, pageSize);
+            stm.setInt(3, pageIndex);
+            stm.setInt(4,pageSize); 
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+               Language l = new Language();
+               l.setId(rs.getInt("language_id"));
+               l.setName(rs.getString("name_language"));
+               languages.add(l); 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LanguageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return languages; 
+    }
+    public int count(){
+        try {
+            String sql = "Select Count(*) as Total from Language";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs =  stm.executeQuery();
+            while(rs.next()){
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+    public void delete(int id){
+        try {
+            String sql = "DELETE FROM  [Language]\n" +
+                    "      WHERE language_id = ?"; 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PublisherDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
