@@ -5,15 +5,14 @@
  */
 package modal;
 
-/**
- *
- * @author pv
- */
+import java.util.ArrayList;
+
+
 public class Account {
     private String username; 
     private String password;
-    private String fullname; 
-
+    private String fullname;
+    private ArrayList<Group> groups = new ArrayList<>(); 
     public Account() {
     }
 
@@ -45,6 +44,14 @@ public class Account {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(ArrayList<Group> groups) {
+        this.groups = groups;
     }
     
 }

@@ -33,17 +33,25 @@
                     </div>
                     <div class ="col-md-5">
                         <ul class="nav">
-                            <li class="nav-item">
-                              <a class="nav-link" href="#">Thông tin mượn sách</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="#">Thông tin cá nhân</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="#">Logout</a>
-                            </li>
-                      </ul>
-                    </div>  
+                            <c:if test="${sessionScope.account != null}">
+                                <li class="nav-item"> 
+                                    <a class="nav-link" href="#">Thông tin mượn sách <img src="images/icons8-book.png" style="margin-bottom: 6px;" width="20px" height="20px" alt=""/></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">${sessionScope.account.fullname}<img src="images/icons8-user.png" style="margin-bottom: 8px;" width="20px" height="20px" alt=""/></a> 
+                                </li>   
+                                <li class="nav-item">
+                                    <a class="nav-link" href="logout">Đăng xuất<img src="images/icons8-logout-16.png" width="20px" style="margin-bottom: 6px;" height="20px" alt=""/></a>
+                                </li>
+                            </c:if>
+                        </ul>
+                        <c:if test="${sessionScope.account == null}">
+                            <div class = "buttom-login" style="display: flex; justify-content: flex-end">
+                                <img src="images/user.png" width="20px" height="20px" style="margin-top: 10px; margin-right: 5px" alt=""/>
+                                <a class=" btn btn-primary"  href="login">Đăng nhập</a>
+                            </div>
+                        </c:if>
+                    </div>    
                 </div> 
                 <div class = "row header-second">
                     <div class = "col-md-12">

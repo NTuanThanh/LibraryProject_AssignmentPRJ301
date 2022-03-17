@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modal.Account;
+import modal.Employee;
+import modal.Group;
 
 /**
  *
@@ -87,5 +89,87 @@ public class AccountDBContext extends DBContext{
             }
         }
         return -1;   
+    }
+    public boolean checkAccountExist(String user){
+        String sql = "select * from Account where username = ? "; 
+        PreparedStatement stm = null; 
+        try { 
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, user);
+            ResultSet rs = stm.executeQuery(); 
+            while(rs.next()){
+               return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;   
+    }
+    public void createAccountTeacher(Account account, Employee e){
+        try {
+            String sql_insertAccount = "INSERT INTO [Account]\n" +
+                    "           ([username]\n" +
+                    "           ,[password]\n" +
+                    "           ,[fullname])\n" +
+                    "     VALUES\n" +
+                    "           (?\n" +
+                    "           ,?\n" +
+                    "           ,?)";
+            String sql_insertEmployee = "INSERT INTO [Employee]\n" +
+                    "           ([ename]\n" +
+                    "           ,[gender]\n" +
+                    "           ,[dob]\n" +
+                    "           ,[email]\n" +
+                    "           ,[username])\n" +
+                    "     VALUES\n" +
+                    "           (?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?)";
+            String sql_insertAccount_Group = "INSERT INTO [Account_Group]\n" +
+                    "           ([username]\n" +
+                    "           ,[gid])\n" +
+                    "     VALUES\n" +
+                    "           (?\n" +
+                    "           ,?)";
+            connection.setAutoCommit(false);
+            // insert Account
+            PreparedStatement stm_insertAccount = connection.prepareStatement(sql_insertAccount);
+            stm_insertAccount.setString(1, account.getUsername());
+            stm_insertAccount.setString(2, account.getPassword());
+            stm_insertAccount.setString(3, account.getFullname());
+            stm_insertAccount.executeUpdate(); 
+            // insert Employee
+            PreparedStatement stm_insertEmployee = connection.prepareStatement(sql_insertEmployee); 
+            stm_insertEmployee.setString(1, e.getEname());
+            stm_insertEmployee.setBoolean(2, e.isGender());
+            stm_insertEmployee.setDate(3, e.getDob());
+            stm_insertEmployee.setString(4, e.getEmail());
+            stm_insertEmployee.setString(5, account.getUsername());
+            stm_insertEmployee.executeUpdate(); 
+            // insert Account_Group
+            for (Group group : account.getGroups()) {
+                  PreparedStatement stm_insertAccount_Group = connection.prepareStatement(sql_insertAccount_Group); 
+                  stm_insertAccount_Group.setString(1, account.getUsername());
+                  stm_insertAccount_Group.setInt(2, group.getId());
+                  stm_insertAccount_Group.executeUpdate();
+            }
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }finally
+        {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }         
+        }      
     }
 }

@@ -38,10 +38,11 @@ public class loginController extends HttpServlet {
         if(account != null){
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
-            response.getWriter().println("Đăng nhập thành công ");
+            response.sendRedirect("home");
         }else{
            request.getSession().setAttribute("account", null);
            response.getWriter().println("Đăng nhập thất bại");
+           response.sendRedirect("home");
         }
     }
 }

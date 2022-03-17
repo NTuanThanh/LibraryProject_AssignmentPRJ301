@@ -56,6 +56,10 @@ label.error{
 .message-error-book{
     color : red;
 }
+.info-account{
+    flex-basis: 50%;
+    margin-top: 50px;
+}
 @media (max-width: 900px){
     .insert-book{
         margin-left: 0px;
@@ -70,4 +74,7 @@ label.error{
     .insert-book .insert-book-item{
         flex-basis: 100%;
     }
+    .info-account{
+    flex-basis: 100%;
+    margin-top: 50px;}
 }

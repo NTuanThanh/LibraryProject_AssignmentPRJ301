@@ -47,10 +47,16 @@
                         <a class="nav-link" href="language/insert">Ngôn Ngữ</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Quản lý mượn trả</a>
+                        <a class="nav-link" href="#">Tạo tài khoản giáo viên</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Quản lý thông báo</a>
+                        <a class="nav-link" href="#">Tạo tài khoản học sinh</a>
+                    </li>
+                    <li class="nav-item left-item">
+                        <a class="nav-link" href="#">Quản lý mượn trả sách</a>
+                    </li>
+                    <li class="nav-item left-item">
+                        <a class="nav-link" href="#">Quản lý thông báo news</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto infomation-admin">
