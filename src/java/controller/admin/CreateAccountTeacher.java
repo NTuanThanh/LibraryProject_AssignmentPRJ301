@@ -80,5 +80,6 @@ public class CreateAccountTeacher extends HttpServlet {
         e.setAccount(account);
         // Create Account và phân quyền luôn (insert vào 3 bảng, 1 là employee và 1 account và account_group )
         accountDB.createAccountTeacher(account, e);
+        response.sendRedirect("view-update");
     }
 }

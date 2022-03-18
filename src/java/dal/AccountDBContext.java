@@ -8,6 +8,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modal.Account;
@@ -172,4 +173,90 @@ public class AccountDBContext extends DBContext{
             }         
         }      
     }
+    public ArrayList<Account> getAccountsEmployee(){
+        ArrayList<Account> accounts = new ArrayList<>();
+        try {
+            String sql = "select a.username, [password], fullname from Account as a INNER JOIN Employee as e on a.username = e.username";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+               Account a = new Account();
+               a.setUsername(rs.getString("username"));
+               a.setPassword(rs.getString("password"));
+               a.setFullname(rs.getString("fullname"));
+               String sql_Account_Group = "select a.username,ag.gid, g.gname from Account as a "
+                                      + " INNER JOIN Account_Group as ag on a.username = ag.username\n" +
+                                           " INNER JOIN [Group] as g on ag.gid = g.gid where a.username = ?";
+               PreparedStatement stm_sql_Account_Group = connection.prepareStatement(sql_Account_Group);
+               stm_sql_Account_Group.setString(1, a.getUsername());
+               ResultSet rs_Account_Group = stm_sql_Account_Group.executeQuery();
+               while(rs_Account_Group.next()){
+                   Group g = new Group();
+                   g.setId(rs_Account_Group.getInt("gid"));
+                   g.setName(rs_Account_Group.getString("gid"));
+                   a.getGroups().add(g); 
+               }
+               accounts.add(a); 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return accounts;
+    }
+    public ArrayList<Account> getAllUsernameEmployee(){
+        ArrayList<Account> getAllUsernames = new ArrayList<>(); 
+        try {
+            String sql = "select a.username from Account as a INNER JOIN Employee as e on a.username = e.username"; 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+               Account a = new Account(); 
+               a.setUsername(rs.getString("username"));
+               getAllUsernames.add(a);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return getAllUsernames; 
+    }
+    public void updateAccount_Group(Account a){
+        try {             
+            String sql_delete = "DELETE FROM [Account_Group] where username = ?";
+            String sql_insert = "INSERT [Account_Group]\n" +
+                    "           ([username]\n" +
+                    "           ,[gid])\n" +
+                    "     VALUES\n" +
+                    "           (?\n" +
+                    "           ,?)";
+            connection.setAutoCommit(false);
+            // xóa toàn bộ bản ghi của acc employee đó và insert lại từ đầu
+            PreparedStatement stm_sql_delete = connection.prepareStatement(sql_delete); 
+            stm_sql_delete.setString(1, a.getUsername());
+            stm_sql_delete.executeUpdate();
+            // insert
+            PreparedStatement stm_sql_insert = connection.prepareStatement(sql_insert);
+            for (Group group : a.getGroups()) {
+                 stm_sql_insert.setString(1, a.getUsername());
+                 stm_sql_insert.setInt(2, group.getId());
+                 stm_sql_insert.executeUpdate();
+            }
+            connection.commit();
+        } catch (SQLException ex) {
+            try {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }finally
+        {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //close connection
+            //close connection
+        }
+    }    
 }
