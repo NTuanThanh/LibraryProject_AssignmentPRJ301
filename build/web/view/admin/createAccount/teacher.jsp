@@ -130,8 +130,8 @@
                             <c:forEach items="${requestScope.groups}" var = "g">
                                 <div>
                                     <div class="form-check form-check-inline">
-                                    <input name = "gid" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="${g.id}">
-                                    <label class="form-check-label text-warning" for="inlineCheckbox1">${g.name}</label>
+                                    <input name = "gid" class="form-check-input" type="checkbox" id="${g.name}" value="${g.id}">
+                                    <label class="form-check-label text-warning" for="${g.name}">${g.name}</label>
                                     </div> 
                                 </div>
                             </c:forEach>
@@ -141,9 +141,6 @@
                 </div>               
                 <div class = "insert-book-submit">
                     <button id = "btn-Save" class="btn btn-success" type="submit">Tạo tài khoản</button>
-                </div>
-                <div>
-                    ${requestScope.message_ExistBook}
                 </div>
             </form>
                 

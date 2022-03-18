@@ -1,6 +1,6 @@
 <%-- 
-    Document   : teacher
-    Created on : Mar 17, 2022, 10:16:06 PM
+    Document   : student
+    Created on : Mar 18, 2022, 2:47:40 PM
     Author     : pv
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -20,7 +20,7 @@
         <link href="../../css/admin/booksAdmin.css" rel="stylesheet" type="text/css"/>
         <link href="../../css/admin/insertAdmin.css" rel="stylesheet" type="text/css"/>
         <script src="../../js/validation/validateForm.js" type="text/javascript"></script>
-        <title>JSP Page</title>
+        <title>Thêm tài khoản học sinh</title>
     </head>
     <body>
         <!--navbar header-->
@@ -77,13 +77,13 @@
         <div class = "main-body">
           <!-- this is header of book management -->
             <div class = "header-adminBook">
-                <h2>Thêm Tài Khoản Giáo Viên</h2>
+                <h2>Thêm Tài Khoản Học Sinh</h2>
             </div>
             <form id ="validate-form-create-account" action = "create" method="POST">
                 <div class = "insert-book">
                     <div class = "insert-book-item form-group">
-                        <label for="ename" class="mr-sm-2">Họ Và Tên</label>
-                        <input type="text" id = "ename" class="form-control" name ="ename" placeholder="Nhập vào họ tên" >
+                        <label for="sname" class="mr-sm-2">Họ Và Tên</label>
+                        <input type="text" id = "sname" class="form-control" name ="sname" placeholder="Nhập vào họ tên" >
                     </div>
                     <div class = "insert-book-item form-group">
                         <label for="dob" class="mr-sm-2">Ngày Sinh</label>
@@ -92,7 +92,19 @@
                     <div class = "insert-book-item form-group">
                         <label for="email" class="mr-sm-2">Email Cá Nhân</label>
                         <input type="text" id = "email" class="form-control" name ="email" placeholder="Nhập vào email">
-                    </div>            
+                    </div>
+                    <div class = "insert-book-item form-group">
+                        <label for="phone" class="mr-sm-2">Số Điện Thoại</label>
+                        <input type="text" id = "phone" class="form-control" name ="phone" placeholder="Nhập vào số điện thoại">
+                    </div>
+                    <div class = "insert-book-item form-group">
+                        <label for="class">Lớp</label>
+                        <select class="form-control" id="class" name = "cid">
+                            <c:forEach items = "${requestScope.classes}" var = "c">
+                                <option value = "${c.id}">${c.name}</option>
+                            </c:forEach>                                        
+                        </select>
+                    </div>
                     <div class = "insert-book-item form-group">
                         <label class="mr-sm-2">Giới tính</label>
                         <div style="display: flex;">
@@ -125,16 +137,11 @@
                             <input type="password" id = "confirm_password" class="form-control" name ="confirm_password" placeholder="Nhập lại mật khẩu trên">
                          </div>
                          <div class = "form-group">
-                            <label class="mr-sm-2">Chọn quyền cho người này</label>
+                            <label class="mr-sm-2">Quyền học sinh</label>
                             <i class="fa-solid fa-users-gear"></i>
-                            <c:forEach items="${requestScope.groups}" var = "g">
-                                <div>
-                                    <div class="form-check form-check-inline">
-                                    <input name = "gid" class="form-check-input" type="checkbox" id="${g.name}" value="${g.id}">
-                                    <label class="form-check-label text-warning" for="${g.name}">${g.name}</label>
-                                    </div> 
-                                </div>
-                            </c:forEach>
+                            <div>
+                                <label class="form-check-label text-warning">User</label>
+                            </div>      
                          </div>
                     </div>                        
                     <form>                
@@ -149,7 +156,7 @@
            // validate 
            $('#validate-form-create-account').validate({
            rules:{
-               ename: {
+               sname: {
                    required:true
                },
                dob: {
@@ -159,6 +166,11 @@
                    required:true,
                    email: true                  
                },
+               phone:{
+                   required:true,
+                   minlength: 10, 
+                   digits: true, 
+                },
                gender: {
                    required:true,
                },
@@ -173,14 +185,11 @@
                },
                confirm_password:{
                    equalTo: "#password"
-               },
-               group:{
-                   required:true
                }
            },
            messages:{
-                ename:{
-                   required:"Tên giáo viên không được bỏ trống"
+                sname:{
+                   required:"Tên học sinh không được bỏ trống"
                 },
                 dob: {
                    required:"Ngày tháng không được bỏ trống"
@@ -188,7 +197,12 @@
                 email: {
                    required:"Email không được bỏ trống",
                    email: "Nhập đúng định dạng email"
-               },
+                },
+                phone:{
+                   required: "Số điện thoại không được bỏ trống",
+                   minlength: "Số điện thoại đúng định dạng và từ 10 số trở lên", 
+                   digits: "Số điện thoại phải là số - không bao gồm chữ",  
+                },
                gender: {
                    required:"Giới tính không được bỏ trống",
                },
@@ -201,9 +215,6 @@
                confirm_password: {
                    equalTo:"Mật khẩu không khớp với mật khẩu bạn vừa nhập"
                },
-               group:{
-                   required:"Phải chọn quyền cho tài khoản"
-               },
                username:{
                    required:"Tên đăng nhập không được bỏ trống"  
                }
@@ -212,4 +223,3 @@
         </script>
     </body>
 </html>
-

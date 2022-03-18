@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import modal.Account;
 import modal.Employee;
 import modal.Group;
+import modal.Student;
 
 /**
  *
@@ -149,6 +150,79 @@ public class AccountDBContext extends DBContext{
             stm_insertEmployee.setString(4, e.getEmail());
             stm_insertEmployee.setString(5, account.getUsername());
             stm_insertEmployee.executeUpdate(); 
+            // insert Account_Group
+            for (Group group : account.getGroups()) {
+                  PreparedStatement stm_insertAccount_Group = connection.prepareStatement(sql_insertAccount_Group); 
+                  stm_insertAccount_Group.setString(1, account.getUsername());
+                  stm_insertAccount_Group.setInt(2, group.getId());
+                  stm_insertAccount_Group.executeUpdate();
+            }
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }finally
+        {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }         
+        }      
+    }
+    public void createAccountStudent(Account account, Student s){
+        try {
+            String sql_insertAccount = "INSERT INTO [Account]\n" +
+                    "           ([username]\n" +
+                    "           ,[password]\n" +
+                    "           ,[fullname])\n" +
+                    "     VALUES\n" +
+                    "           (?\n" +
+                    "           ,?\n" +
+                    "           ,?)";
+            String sql_insertStudent = "INSERT INTO [Student]\n" +
+                                "           ([sname]\n" +
+                                "           ,[dob]\n" +
+                                "           ,[gender]\n" +
+                                "           ,[class_id]\n" +
+                                "           ,[email]\n" +
+                                "           ,[phone]\n" +
+                                "           ,[username])\n" +
+                                "     VALUES\n" +
+                                "           (?\n" +
+                                "           ,?\n" +
+                                "           ,?\n" +
+                                "           ,?\n" +
+                                "           ,?\n" +
+                                "           ,?\n" +
+                                "           ,?)";
+            String sql_insertAccount_Group = "INSERT INTO [Account_Group]\n" +
+                    "           ([username]\n" +
+                    "           ,[gid])\n" +
+                    "     VALUES\n" +
+                    "           (?\n" +
+                    "           ,?)";
+            connection.setAutoCommit(false);
+            // insert Account
+            PreparedStatement stm_insertAccount = connection.prepareStatement(sql_insertAccount);
+            stm_insertAccount.setString(1, account.getUsername());
+            stm_insertAccount.setString(2, account.getPassword());
+            stm_insertAccount.setString(3, account.getFullname());
+            stm_insertAccount.executeUpdate(); 
+            // insert Employee
+            PreparedStatement stm_sql_insertStudent = connection.prepareStatement(sql_insertStudent); 
+            stm_sql_insertStudent.setString(1, s.getName());
+            stm_sql_insertStudent.setDate(2, s.getDob());
+            stm_sql_insertStudent.setBoolean(3, s.isGender());
+            stm_sql_insertStudent.setInt(4,s.getCid()); 
+            stm_sql_insertStudent.setString(5, s.getEmail());
+            stm_sql_insertStudent.setString(6, s.getPhone());
+            stm_sql_insertStudent.setString(7, account.getUsername());
+            stm_sql_insertStudent.executeUpdate(); 
             // insert Account_Group
             for (Group group : account.getGroups()) {
                   PreparedStatement stm_insertAccount_Group = connection.prepareStatement(sql_insertAccount_Group); 

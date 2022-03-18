@@ -68,6 +68,10 @@
         <servlet-name>UpdateAuthoTeacher</servlet-name>
         <servlet-class>controller.admin.UpdateAuthoTeacherAccount</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateAccountStudent</servlet-name>
+        <servlet-class>controller.admin.CreateAccountStudent</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>UpdateAuthoTeacher</servlet-name>
         <url-pattern>/admin/teacher/view-update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateAccountStudent</servlet-name>
+        <url-pattern>/admin/student/create</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
