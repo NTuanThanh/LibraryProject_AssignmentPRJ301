@@ -16,6 +16,7 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
         <link href="../css/admin/booksAdmin.css" rel="stylesheet" type="text/css"/>
         <script src="../js/pagination/pagger.js" type="text/javascript"></script>
         <title>JSP Page</title>
@@ -31,10 +32,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto flex-column vertical-nav">
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="../home"><i style="margin-right: 5px" class="fa fa-home"></i>Về Trang Chủ User</a>
+                        <a class="nav-link" href="../home"><i style="margin-right: 5px" class="fa fa-home"></i>Về Trang Chủ Thư Viện</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="books"><i style="margin-right: 5px" class="fa fa-book"></i>Quản Lý Sách</a>
+                        <a class="nav-link" href="books">Quản Lý Sách</a>
                     </li>
                     <li class="nav-item left-item">
                         <a class="nav-link" href="category/insert">Danh Mục Sách</a>
@@ -47,30 +48,27 @@
                         <a class="nav-link" href="language/insert">Ngôn Ngữ</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Tạo tài khoản giáo viên</a>
+                        <a class="nav-link" href="../admin/teacher/create">Tạo tài khoản giáo viên</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Tạo tài khoản học sinh</a>
+                        <a class="nav-link" href="../admin/student/create">Tạo tài khoản học sinh</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Quản lý mượn trả sách</a>
+                        <a class="nav-link" href="#">Quản lý mượn trả </a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="#">Quản lý thông báo news</a>
+                        <a class="nav-link" href="#">Quản lý thông báo</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto infomation-admin">
-                    <li class="nav-item">
-                        <a class="nav-link admin-name" href="#">Foo</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle admin-name" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Admin
+                            ${sessionScope.account.fullname}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Thông tin cá nhân</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Log Out</a>
+                            <a class="dropdown-item" href="../logout">Đăng xuất</a>
                         </div>
                     </li>
                 </ul>

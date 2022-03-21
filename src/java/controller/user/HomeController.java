@@ -6,6 +6,7 @@
 package controller.user;
 
 import dal.BookDBContext;
+import dal.BorrowDBContext;
 import dal.CategoryDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,8 +33,15 @@ public class HomeController extends HttpServlet {
         request.setAttribute("categories", categories);
          // test dữ liệu, phân trang sau
         BookDBContext bookDB = new BookDBContext();
+        BorrowDBContext borrowDB = new BorrowDBContext(); 
+        // số lượng tối đa là 10 lượt
+        int max = 10; 
+        int turnNumber = borrowDB.turnNumber(10);
+        request.getSession().setAttribute("turnNumber", turnNumber);
         ArrayList<Book> top10books = bookDB.getTop10books();
+        ArrayList<Book> top5pubyear = bookDB.getTop5publicYear();
         request.setAttribute("top10books",top10books);
+        request.setAttribute("top5pubyear", top5pubyear);
         request.getRequestDispatcher("view/home.jsp").forward(request, response);
     }
 

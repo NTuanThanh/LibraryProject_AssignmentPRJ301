@@ -72,6 +72,14 @@
         <servlet-name>CreateAccountStudent</servlet-name>
         <servlet-class>controller.admin.CreateAccountStudent</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StudentAccount</servlet-name>
+        <servlet-class>controller.admin.StudentAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>waitingBorrowController</servlet-name>
+        <servlet-class>controller.user.waitingBorrowController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -143,6 +151,14 @@
     <servlet-mapping>
         <servlet-name>CreateAccountStudent</servlet-name>
         <url-pattern>/admin/student/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentAccount</servlet-name>
+        <url-pattern>/admin/student/view-account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>waitingBorrowController</servlet-name>
+        <url-pattern>/borrow</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

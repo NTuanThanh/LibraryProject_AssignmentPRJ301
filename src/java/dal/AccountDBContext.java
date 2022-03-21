@@ -15,7 +15,7 @@ import modal.Account;
 import modal.Employee;
 import modal.Group;
 import modal.Student;
-
+import modal.Class;
 /**
  *
  * @author pv
@@ -39,21 +39,6 @@ public class AccountDBContext extends DBContext{
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            if(stm != null){
-                try {
-                    stm.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if(connection != null){
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
         return null;   
     } 
@@ -213,12 +198,12 @@ public class AccountDBContext extends DBContext{
             stm_insertAccount.setString(2, account.getPassword());
             stm_insertAccount.setString(3, account.getFullname());
             stm_insertAccount.executeUpdate(); 
-            // insert Employee
+            // insert Student
             PreparedStatement stm_sql_insertStudent = connection.prepareStatement(sql_insertStudent); 
             stm_sql_insertStudent.setString(1, s.getName());
             stm_sql_insertStudent.setDate(2, s.getDob());
             stm_sql_insertStudent.setBoolean(3, s.isGender());
-            stm_sql_insertStudent.setInt(4,s.getCid()); 
+            stm_sql_insertStudent.setInt(4,s.getC().getId()); 
             stm_sql_insertStudent.setString(5, s.getEmail());
             stm_sql_insertStudent.setString(6, s.getPhone());
             stm_sql_insertStudent.setString(7, account.getUsername());
@@ -332,5 +317,61 @@ public class AccountDBContext extends DBContext{
             //close connection
             //close connection
         }
-    }    
+    }
+    public boolean isTeacher(Account a){
+        try {
+            String sql = "select * from Account as a INNER JOIN Employee as e on a.username = e.username where a.username = ? "; 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, a.getUsername());
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+   } 
+    public boolean isStudent(Account a){
+        try {
+            String sql = "select * from Account as a INNER JOIN Student as s on a.username = s.username where a.username = ? "; 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, a.getUsername());
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+   }
+    public Student getStudent(Account a){
+        try {
+            String sql = "select student_id, sname, dob, gender, class_id, email, phone, a.username from Account as a \n" +
+                    "INNER JOIN Student as s on a.username = s.username where a.username = ? "; 
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, a.getUsername());
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Student s = new Student(); 
+                s.setId(rs.getInt("student_id"));
+                s.setName(rs.getString("sname"));
+                s.setDob(rs.getDate("dob"));
+                s.setGender(rs.getBoolean("gender"));
+                s.setEmail(rs.getString("email"));
+                s.setPhone(rs.getString("phone"));
+                Class c = new Class(); 
+                c.setId(rs.getInt("class_id"));
+                Account acc = new Account(); 
+                acc.setUsername(rs.getString("username"));
+                s.setC(c);
+                s.setAccount(acc);
+                return s;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

@@ -38,11 +38,19 @@ public class loginController extends HttpServlet {
         if(account != null){
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
-            response.sendRedirect("home");
+            // check xem acc này là teacher hay student
+            boolean isTeacher = accountDB.isTeacher(account);
+            if(isTeacher){
+                request.getSession().setAttribute("isTeacher", isTeacher);
+                response.sendRedirect("admin/books");
+            }else{
+                request.getSession().setAttribute("isTeacher", null);
+                response.sendRedirect("home");
+            }
         }else{
            request.getSession().setAttribute("account", null);
-           response.getWriter().println("Đăng nhập thất bại");
-           response.sendRedirect("home");
+           request.setAttribute("message_wrongpassword", "message_wrongpassword");
+           request.getRequestDispatcher("/view/auth/login.jsp").forward(request, response);
         }
     }
 }

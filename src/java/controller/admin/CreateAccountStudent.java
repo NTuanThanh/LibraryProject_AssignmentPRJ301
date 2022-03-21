@@ -5,6 +5,7 @@
  */
 package controller.admin;
 
+import controller.authorization.BaseAuthController;
 import dal.AccountDBContext;
 import dal.ClassDBContext;
 import dal.GroupDBContext;
@@ -25,10 +26,10 @@ import modal.Student;
  *
  * @author pv
  */
-public class CreateAccountStudent extends HttpServlet {
+public class CreateAccountStudent extends BaseAuthController {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ClassDBContext classDB = new ClassDBContext(); 
         ArrayList<Class> classes = classDB.getClasses();
@@ -38,7 +39,7 @@ public class CreateAccountStudent extends HttpServlet {
 
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         AccountDBContext accountDB = new AccountDBContext();
@@ -83,12 +84,14 @@ public class CreateAccountStudent extends HttpServlet {
         student.setDob(dob);
         student.setEmail(email);
         student.setPhone(phone);
-        student.setCid(cid);
+        Class c = new Class();
+        c.setId(cid);
+        student.setC(c);
         student.setGender(gender);
         student.setAccount(account);
         // Create Account và phân quyền luôn (insert vào 3 bảng, 1 là student và 1 account và account_group )
-        accountDB.createAccountStudent(account, student);
-        
+        accountDB.createAccountStudent(account, student);       
+        response.sendRedirect("view-account");
     }
 
 

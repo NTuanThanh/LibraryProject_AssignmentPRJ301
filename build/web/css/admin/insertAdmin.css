@@ -60,6 +60,10 @@ label.error{
     flex-basis: 50%;
     margin-top: 50px;
 }
+.teacher-save{
+    display: flex; 
+    justify-content: center;
+}
 @media (max-width: 900px){
     .insert-book{
         margin-left: 0px;

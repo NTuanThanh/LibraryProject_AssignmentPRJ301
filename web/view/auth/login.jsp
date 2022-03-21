@@ -14,6 +14,13 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"rel="stylesheet" />
         <title>JSP Page</title>
+        <style>
+            label.error{
+            color : red !important;
+            font-size: 14px;
+            font-weight: 500;
+         }
+        </style>
     </head>
     <body>
         <form action = "login" method="POST">
@@ -35,6 +42,9 @@
                                     <input type="password" name = "password" id="typePasswordX-2" class="form-control form-control-lg" />
                                     <label class="form-label" for="typePasswordX-2">Mật khẩu</label>
                                 </div>
+                                <c:if test="${requestScope.message_wrongpassword != null}">
+                                        <label id="bname-error" class="error" for="bname">Tài Khoản Hoặc Mật Khẩu Không Đúng</label>
+                                </c:if>
                                 <p class="small mb-5 pb-lg-2"><a class="text-black-50" href="#!">Quên mật khẩu ?</a></p>
                                 <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                                 <hr class="my-4">

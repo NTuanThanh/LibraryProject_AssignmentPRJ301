@@ -36,11 +36,12 @@ public abstract class BaseAuthController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         if(isAuthenticated(request)){
             // bussiness logic
             processGet(request, response);           
         }else{
-           response.getWriter().print("Access Denied!");
+           response.sendRedirect("http://localhost:8080/Assignment_Library/login");
         }
     }
     protected abstract void processGet(HttpServletRequest request, HttpServletResponse response)

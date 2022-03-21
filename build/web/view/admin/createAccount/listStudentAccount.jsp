@@ -1,9 +1,10 @@
 <%-- 
-    Document   : insertLanguage.jsp
-    Created on : Mar 11, 2022, 5:35:55 PM
+    Document   : listStudent
+    Created on : Mar 18, 2022, 5:22:34 PM
     Author     : pv
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
@@ -19,9 +20,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
         <link href="../../css/admin/booksAdmin.css" rel="stylesheet" type="text/css"/>
-        <script src="../../js/pagination/pagger.js" type="text/javascript"></script>
         <link href="../../css/admin/insertAdmin.css" rel="stylesheet" type="text/css"/>
-        <title>JSP Page</title>
+        <script src="../../js/validation/validateForm.js" type="text/javascript"></script>
+        <title>Thêm tài khoản học sinh</title>
     </head>
     <body>
         <!--navbar header-->
@@ -47,13 +48,13 @@
                         <a class="nav-link" href="../publisher/insert">Nhà Xuất Bản</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="insert">Ngôn Ngữ</a>
+                        <a class="nav-link" href="../language/insert">Ngôn Ngữ</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="../../admin/teacher/create">Tạo tài khoản giáo viên</a>
+                        <a class="nav-link" href="../teacher/create">Tạo tài khoản giáo viên</a>
                     </li>
                     <li class="nav-item left-item">
-                        <a class="nav-link" href="../../admin/student/create">Tạo tài khoản học sinh</a>
+                        <a class="nav-link" href="create">Tạo tài khoản học sinh</a>
                     </li>
                     <li class="nav-item left-item">
                         <a class="nav-link" href="#">Quản lý mượn trả</a>
@@ -81,73 +82,47 @@
         <div class = "main-body">
           <!-- this is header of book management -->
             <div class = "header-adminBook">
-                <h2>Thêm Ngôn Ngữ</h2>
+                <h2>Thêm Tài Khoản Học Sinh</h2>
             </div>
-          <form id = "validate-insert-other" action = "insert" method="POST">
-                <div class = "insert-book-other">
-                    <div class = "insert-book-other-item form-group">
-                        <label for="bookname" class="mr-sm-2">Ngôn Ngữ</label>
-                        <input type="text" class="form-control" name ="languageName" placeholder="Nhập vào ngôn ngữ mà bạn muốn thêm" >
-                    </div>
-                    <div class = "insert-book-other-button">
-                        <button id = "btn-Save" class="btn btn-success" type="submit">Thêm</button>
-                        <span class = "message-error-book">${requestScope.message_ExistLanguageName}</span>
-                    </div>
-                </div>             
-           </form>
-            <!-- show book table - and delete update -->
-            <div class="book-table">
+          <div class="book-table">
              <table class="table table-hover">
                 <thead>
                     <tr class = "bg-warning">
-                        <th scope="col">Mã</th>
-                        <th scope="col">Ngôn Ngữ</th>
-                        <th scope="col">Xóa</th>
+                        <th>STT</th>
+                        <th>Tên tài khoản</th>
+                        <th>Quyền</th>
+                        <th>Họ và tên</th>
+                        <th>Ngày sinh</th>
+                        <th>Giới Tính</th>
+                        <th>Lớp</td>
+                        <th>Email liên hệ</th>
+                        <th>Số điện thoại</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${requestScope.languages}" var="l"> 
+                <c:set var="count" value="${1}"/>
+                <% int i = 1;%>
+                <c:forEach items="${students}" var = "s">
                     <tr>
-                        <th scope="row">${l.id}</th>
-                        <td>${l.name}</td>
+                        <td><%=i++%></td>
+                        <td>${s.account.username}</td>
+                        <c:forEach items="${s.account.groups}" var = "ag">
+                            <td>${ag.name}</td>       
+                        </c:forEach>
+                        <td>${s.name}</td>
                         <td>
-                            <button type="button" onclick="deleteLanguage(${l.id})" class="btn btn-info">Xóa</button>
+                            <fmt:formatDate type = "date" 
+                                            value = "${s.dob}" />
                         </td>
+                        <td>${s.gender == "true" ? "Nam" : "Nữ"}</td>
+                        <td>${s.c.name}</td>
+                        <td style="text-transform: none">${s.email}</td>
+                        <td>${s.phone}</td>               
                     </tr>
-                    </c:forEach>
+              </c:forEach>
                 </tbody>
               </table>
-            </div>
-            <!-- This is pagination -->
-            <div class = "books-pagination">
-                <ul class="pagination" id = "paggerBottom">
-
-                </ul>
-            </div>
+            </div>          
         </div>
-        <script>
-            function deleteLanguage(lid){
-                var c = confirm("Bạn có chắc muốn xóa ngôn ngữ này không ?");
-                if(c){
-                   window.location.href = "delete?lid=" + lid;
-                } 
-            }
-             // có sách mới phân trang 
-            if(${requestScope.languages.size() > 0}){
-               pagger_Books("paggerBottom",2,${requestScope.totalPage},${requestScope.pageIndex},'${requestScope.url}'); 
-            }
-             $('#validate-insert-other').validate({
-               rules:{
-                   languageName :{
-                        required:true
-                   }
-               },
-               messages:{
-                   languageName : {
-                       required:"Tên ngôn ngữ không được bỏ trống"
-                   }
-                }
-              });
-        </script>
     </body>
 </html>

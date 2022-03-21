@@ -34,9 +34,16 @@
                     <div class ="col-md-5">
                         <ul class="nav">
                             <c:if test="${sessionScope.account != null}">
-                                <li class="nav-item"> 
+                                <c:if test="${sessionScope.isTeacher != null && sessionScope.isTeacher == true}">
+                                   <li class="nav-item"> 
+                                       <a class="nav-link" href="admin/books">Vào Trang Quản Lý</a>
+                                   </li>        
+                                </c:if>
+                                <c:if test="${sessionScope.isTeacher == null || sessionScope.isTeacher != true}">
+                                   <li class="nav-item"> 
                                     <a class="nav-link" href="#">Thông tin mượn sách <img src="images/icons8-book.png" style="margin-bottom: 6px;" width="20px" height="20px" alt=""/></a>
-                                </li>
+                                   </li>       
+                                </c:if>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">${sessionScope.account.fullname}<img src="images/icons8-user.png" style="margin-bottom: 8px;" width="20px" height="20px" alt=""/></a> 
                                 </li>   
@@ -102,7 +109,7 @@
         <span>Trường THPT Nghi Lộc 4 xin thông báo ngày 
                        <fmt:formatDate type = "date" 
                         value = "${now}" /> 
-              còn 50 lượt mượn sách
+              còn ${sessionScope.turnNumber} lượt mượn sách
         </span>
         <span class = "notice-covid"> -  HỌC SINH PHẢI CHẤP HÀNH THỰC HIỆN QUY ĐỊNH 5K ĐẢM BẢO AN TOÀN PHÒNG CHỐNG DỊCH COVID-19 KHI QUAY TRỞ LẠI TRƯỜNG VÀ MƯỢN SÁCH</span>
     </marquee>
@@ -130,19 +137,18 @@
                 </div>
                 <!--Show top 5 books-->
                 <h2 class = "sec-title">
-                    <p style="vertical-align: inherit">Top 5 Quyển Sách Được Đọc Nhiều Nhất</p>
+                    <p style="vertical-align: inherit">Gợi Ý Cho Bạn</p>
                 </h2>
                 <div class = "books-item">                   
-                    <c:forEach var = "i" begin = "1" end = "5">
-                       <a href ="#" class = "book-item">
+                    <c:forEach items="${requestScope.top5pubyear}" var = "b">
+                       <a href ="books/detail?bid=${b.id}" class = "book-item">
                         <figure>
-                           <img src="images/books/16d5362dccc37c978c330de741104f9e.jpeg" alt=""/>
-<!--                           <img src="images/books/1.jpg" alt="Đắc nhân tâm"/>-->
+                           <img src="images/books/${b.img}" alt="${b.name}"/>
                         </figure>                           
                         <div class = "book-info">
-                            <p class = "book-title">Đắc Nhân Tâm</p>
-                            <h3 class = "book-category">Tâm Lý - Kỹ Năng Sống</h3>
-                            <p class = "book-author">Tác giả : Mr a</p>
+                            <p class = "book-title">${b.name}</p>
+                            <h3 class = "book-category">${b.category.name}</h3>
+                            <p class = "book-author">${b.author}</p>
                         </div>
                     </a>
                    </c:forEach>

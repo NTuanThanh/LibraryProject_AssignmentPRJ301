@@ -18,8 +18,15 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <link href="../css/detail.css" rel="stylesheet" type="text/css"/>
         <link href="../css/stylehome.css" rel="stylesheet" type="text/css"/>     
-        <link href="../css/books.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/books.css" rel="stylesheet" type="text/css"/>        
         <c:set var = "now" value = "<%= new java.util.Date()%>" />
+        <style>
+            label.error{
+            color : red !important;
+            font-size: 14px;
+            font-weight: 500;
+         }
+        </style>
     </head>
     <body>
         <!--this is header-->
@@ -33,9 +40,16 @@
                     <div class ="col-md-5">
                         <ul class="nav">
                             <c:if test="${sessionScope.account != null}">
-                                <li class="nav-item"> 
+                                <c:if test="${sessionScope.isTeacher != null && sessionScope.isTeacher == true}">
+                                   <li class="nav-item"> 
+                                       <a class="nav-link" href="../admin/books">Vào Trang Quản Lý</a>
+                                   </li>        
+                                </c:if>
+                                <c:if test="${sessionScope.isTeacher == null || sessionScope.isTeacher != true}">
+                                   <li class="nav-item"> 
                                     <a class="nav-link" href="#">Thông tin mượn sách <img src="../images/icons8-book.png" style="margin-bottom: 6px;" width="20px" height="20px" alt=""/></a>
-                                </li>
+                                   </li>       
+                                </c:if>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">${sessionScope.account.fullname}<img src="../images/icons8-user.png" style="margin-bottom: 8px;" width="20px" height="20px" alt=""/></a> 
                                 </li>   
@@ -101,7 +115,7 @@
             <span>Trường THPT Nghi Lộc 4 xin thông báo ngày 
                            <fmt:formatDate type = "date" 
                             value = "${now}" /> 
-                  còn 50 lượt mượn sách
+                  còn ${sessionScope.turnNumber} lượt mượn sách
             </span>
             <span class = "notice-covid"> -  HỌC SINH PHẢI CHẤP HÀNH THỰC HIỆN QUY ĐỊNH 5K ĐẢM BẢO AN TOÀN PHÒNG CHỐNG DỊCH COVID-19 KHI QUAY TRỞ LẠI TRƯỜNG VÀ MƯỢN SÁCH</span>
         </marquee>
@@ -112,9 +126,17 @@
                 <div class = "col-lg-9">
                     <div class = "block-books-left">
                         <div class="sidebar-title">Thông Tin Chi Tiết</div>
-                        <div class = "borrow-book">
-                            <button class="btn btn-danger" >Mượn</button>
-                        </div>
+                        <form action="detail" method="POST">
+                            <div class = "borrow-book">
+                                <input name = "bid" hidden value = "${requestScope.book.id}"/>
+                                <button class="btn btn-danger" >Mượn</button>
+                            </div>
+                        </form>
+                        <c:if test="${requestScope.message_borrow != null}">
+                            <div style="display: flex; justify-content: center;">
+                                <label id="bname-error" class="error" for="bname">${requestScope.message_borrow}</label>
+                            </div>   
+                        </c:if>
                         <div class = "book-details">
                             <div class = "title-detail">
                                 <a href="">${requestScope.book.name}</a>
@@ -189,5 +211,10 @@
                 <a href="#"> thuviennghiloc4.edu.vn</a>
             </div>
         </footer>
+        <script>
+            function borrow(id){
+                window.location.href = "../borrow?bid="+id; 
+            }
+        </script>    
     </body>
 </html>

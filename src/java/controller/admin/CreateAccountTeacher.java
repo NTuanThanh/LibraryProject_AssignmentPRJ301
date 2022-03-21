@@ -5,6 +5,7 @@
  */
 package controller.admin;
 
+import controller.authorization.BaseAuthController;
 import dal.AccountDBContext;
 import dal.GroupDBContext;
 import java.io.IOException;
@@ -23,10 +24,10 @@ import modal.Group;
  *
  * @author pv
  */
-public class CreateAccountTeacher extends HttpServlet {
+public class CreateAccountTeacher extends BaseAuthController {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         GroupDBContext groupDB = new GroupDBContext(); 
         ArrayList<Group> groups = groupDB.getGroups();
@@ -35,7 +36,7 @@ public class CreateAccountTeacher extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         AccountDBContext accountDB = new AccountDBContext();

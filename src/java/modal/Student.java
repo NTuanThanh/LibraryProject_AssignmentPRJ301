@@ -6,7 +6,8 @@
 package modal;
 
 import java.sql.Date;
-
+import java.util.ArrayList;
+import modal.Class;
 /**
  *
  * @author pv
@@ -17,25 +18,28 @@ public class Student {
     private Date dob; 
     private String email; 
     private String phone;
-    private int cid; 
+    private Class c;
     private boolean gender;
     private Account account; 
-
+    private ArrayList<WaitingBorrow> waitingBorrows = new ArrayList<>();
     public Student() {
     }
 
-    public Student(int id, String name, Date dob, String email, String phone, int cid, boolean gender, Account account) {
-        this.id = id;
-        this.name = name;
-        this.dob = dob;
-        this.email = email;
-        this.phone = phone;
-        this.cid = cid;
-        this.gender = gender;
-        this.account = account;
+    public Class getC() {
+        return c;
     }
 
-     
+    public void setC(Class c) {
+        this.c = c;
+    }
+
+    public ArrayList<WaitingBorrow> getWaitingBorrows() {
+        return waitingBorrows;
+    }
+
+    public void setWaitingBorrows(ArrayList<WaitingBorrow> waitingBorrows) {
+        this.waitingBorrows = waitingBorrows;
+    }   
     public int getId() {
         return id;
     }
@@ -76,13 +80,18 @@ public class Student {
         this.phone = phone;
     }
 
-    public int getCid() {
-        return cid;
+    public Student(int id, String name, Date dob, String email, String phone, Class c, boolean gender, Account account) {
+        this.id = id;
+        this.name = name;
+        this.dob = dob;
+        this.email = email;
+        this.phone = phone;
+        this.c = c;
+        this.gender = gender;
+        this.account = account;
     }
 
-    public void setCid(int cid) {
-        this.cid = cid;
-    }
+
 
     public boolean isGender() {
         return gender;

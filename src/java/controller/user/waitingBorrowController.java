@@ -6,53 +6,41 @@
 package controller.user;
 
 import dal.AccountDBContext;
-import dal.BookDBContext;
 import dal.BorrowDBContext;
-import dal.CategoryDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modal.Account;
-import modal.Book;
-import modal.Category;
 import modal.Student;
 
 /**
  *
  * @author pv
  */
-public class DetailController extends HttpServlet {
+public class waitingBorrowController extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet waitingBorrowController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet waitingBorrowController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        CategoryDBContext categoryDB = new CategoryDBContext();
-        BookDBContext bookDB = new BookDBContext();
-        ArrayList<Category> categories = categoryDB.getAllCategories();
-        String raw_bid = request.getParameter("bid");
-        if(raw_bid == null || raw_bid.length() == 0){
-            raw_bid = "-1"; 
-        }
-        BorrowDBContext borrowDB = new BorrowDBContext();
-        int max = 10; 
-        int turnNumber = borrowDB.turnNumber(10);
-        request.getSession().setAttribute("turnNumber", turnNumber);
-        int bid = Integer.parseInt(raw_bid); 
-        Book book = bookDB.getBook(bid); 
-        request.setAttribute("book", book);
-        request.setAttribute("categories",categories);
-        request.getRequestDispatcher("../view/detail.jsp").forward(request, response);               
-    }
-
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String raw_bid = request.getParameter("bid"); 
@@ -65,7 +53,7 @@ public class DetailController extends HttpServlet {
         if(student != null){
            // Điều kiện 2 : Còn có số lượt mượn trong ngày <= 50 lượt
            int numberBorrowed = borrowDB.checkTurnBoroww(student); 
-           if(numberBorrowed < 10){
+           if(numberBorrowed < 5){
                // Điều kiện 3 : 1 ngày tối đa mượn được 4 quyển
                int numberBook = borrowDB.checkNumberBook(student);
                if(numberBook < 4){
@@ -89,13 +77,31 @@ public class DetailController extends HttpServlet {
         }else{
              request.setAttribute("message_borrow", "Bạn không phải là học sinh");
         }
-        BookDBContext bookDB = new BookDBContext();
-        CategoryDBContext categoryDB = new CategoryDBContext();
-        ArrayList<Category> categories = categoryDB.getAllCategories();
-        Book book = bookDB.getBook(bid); 
-        request.setAttribute("book", book);
-        request.setAttribute("categories",categories);
-        request.getRequestDispatcher("../view/detail.jsp").forward(request, response);
+        request.getRequestDispatcher("books/detail").forward(request, response);
+        
     }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }

@@ -34,9 +34,16 @@
                     <div class ="col-md-5">
                         <ul class="nav">
                             <c:if test="${sessionScope.account != null}">
-                                <li class="nav-item"> 
+                                <c:if test="${sessionScope.isTeacher != null && sessionScope.isTeacher == true}">
+                                   <li class="nav-item"> 
+                                       <a class="nav-link" href="admin/books">Vào Trang Quản Lý</a>
+                                   </li>        
+                                </c:if>
+                                <c:if test="${sessionScope.isTeacher == null || sessionScope.isTeacher != true}">
+                                   <li class="nav-item"> 
                                     <a class="nav-link" href="#">Thông tin mượn sách <img src="images/icons8-book.png" style="margin-bottom: 6px;" width="20px" height="20px" alt=""/></a>
-                                </li>
+                                   </li>       
+                                </c:if> 
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">${sessionScope.account.fullname}<img src="images/icons8-user.png" style="margin-bottom: 8px;" width="20px" height="20px" alt=""/></a> 
                                 </li>   
@@ -102,7 +109,7 @@
             <span>Trường THPT Nghi Lộc 4 xin thông báo ngày 
                            <fmt:formatDate type = "date" 
                             value = "${now}" /> 
-                  còn 50 lượt mượn sách
+                  còn ${sessionScope.turnNumber} lượt mượn sách
             </span>
             <span class = "notice-covid"> -  HỌC SINH PHẢI CHẤP HÀNH THỰC HIỆN QUY ĐỊNH 5K ĐẢM BẢO AN TOÀN PHÒNG CHỐNG DỊCH COVID-19 KHI QUAY TRỞ LẠI TRƯỜNG VÀ MƯỢN SÁCH</span>
         </marquee>

@@ -5,6 +5,7 @@
  */
 package controller.admin;
 
+import controller.authorization.BaseAuthController;
 import dal.AccountDBContext;
 import dal.GroupDBContext;
 import java.io.IOException;
@@ -21,11 +22,11 @@ import modal.Group;
  *
  * @author pv
  */
-public class UpdateAuthoTeacherAccount extends HttpServlet {
+public class UpdateAuthoTeacherAccount extends BaseAuthController {
 
     
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         AccountDBContext accountDB = new AccountDBContext();
         GroupDBContext groupDB = new GroupDBContext(); 
@@ -45,7 +46,7 @@ public class UpdateAuthoTeacherAccount extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         AccountDBContext accountDB = new AccountDBContext(); 
         ArrayList<Account> allUsername = accountDB.getAllUsernameEmployee(); 

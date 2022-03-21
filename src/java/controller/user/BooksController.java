@@ -6,6 +6,7 @@
 package controller.user;
 
 import dal.BookDBContext;
+import dal.BorrowDBContext;
 import dal.CategoryDBContext;
 import dal.PublisherDBContext;
 import java.io.IOException;
@@ -108,6 +109,10 @@ public class BooksController extends HttpServlet {
             url += (url_param); 
         }
         request.setAttribute("url", url);
+        BorrowDBContext borrowDB = new BorrowDBContext();
+        int max = 10; 
+        int turnNumber = borrowDB.turnNumber(10);
+        request.getSession().setAttribute("turnNumber", turnNumber);
         request.getRequestDispatcher("view/books.jsp").forward(request, response);
     }
 
