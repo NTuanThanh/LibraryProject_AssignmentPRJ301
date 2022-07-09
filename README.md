@@ -1,7 +1,7 @@
 # Online Library( Project of Java Web Course of FPT University ) 
 ## About : 
  ### * This is the library management system in the high school scale, the reason for doing the project : 
-    - In high schools, the library manager uses software such as excel or sheets of paper to record the number of borrowers 
+    - In high schools, the library manager uses software such as excel or sheets of paper to write the number of borrowers 
       and the number of people overdue to manage the borrowing of books.
     - Students have very little time to look at the book information and go to the library to choose and borrow books.
     - Covid-19 does not allow students to gather more than the number of people allowed in the library
