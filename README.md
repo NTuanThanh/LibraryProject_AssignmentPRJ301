@@ -1,12 +1,12 @@
 # Online Library( Project of Java Web Course of FPT University ) 
 ## About : 
  ### * This is the library management system in the high school scale, the reason for doing the project : 
-    - In high schools, the library manager uses software such as excel or sheets of paper to write the number of borrowers 
-      and the number of people overdue to manage the borrowing of books.
+    - In high schools, the library manager uses software such as excel or sheets of paper to 
+      write the number of borrowers and the number of people overdue to manage the borrowing of books.
     - Students have very little time to look at the book information and go to the library to choose and borrow books.
     - Covid-19 does not allow students to gather more than the number of people allowed in the library
     => From the reasons on the online library system, it will help the library manager more easily manage, just by manipulating the screens, 
-    students can borrow online and view the details of the books still in the library. school library. The system will 
+    students can borrow online and view the details of the books still in the school library. The system will 
     limit the number of borrowings per day, which means that there are only "x" loans per day to prevent students from gathering too much to borrow books.
  ### * Languages programing, libraries and frameworks : Java, JavaScript, Html, Css, Boostrap, Jquery
  ## Home Page : 
@@ -26,3 +26,5 @@
  ![2 Phân quyền](https://user-images.githubusercontent.com/99120557/177920113-f0368e81-f62c-4b29-bd23-763d987d46c7.JPG)
  ## Admin can edit role of system(role-based authorization )  
  ![phân quyền 2](https://user-images.githubusercontent.com/99120557/177920404-4f93cc9e-244c-468e-8d1e-11d622cc721c.JPG)
+ 
+ # Inprogesing...
